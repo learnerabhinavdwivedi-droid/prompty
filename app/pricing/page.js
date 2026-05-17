@@ -44,7 +44,7 @@ const ADVANCED_FEATURES = [
 
 export default function PricingPage() {
   return (
-    <div className="bg-[#080808] flex-1 text-[#f0f0f0] overflow-x-hidden selection:bg-[#a855f7]/30">
+    <div className="bg-[#080808] text-[#f0f0f0] overflow-x-hidden selection:bg-[#a855f7]/30">
       <main className="pt-16 pb-24 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#a855f7]/10 rounded-full blur-[160px] pointer-events-none" />
 

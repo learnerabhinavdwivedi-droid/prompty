@@ -48,10 +48,17 @@ export default function SmoothScroll({ children }) {
     };
   }, []);
 
-  // Reset scroll to top on route change
+  // Reset scroll to top and recalculate dimensions on route change
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
+      
+      // Delay resize slightly to let browser complete rendering/painting
+      const timer = setTimeout(() => {
+        lenisRef.current?.resize();
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
   }, [pathname]);
 

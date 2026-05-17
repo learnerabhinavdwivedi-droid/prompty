@@ -7,7 +7,7 @@
 
 **Same AI, fewer tokens. Ship smarter, save up to 35% on LLM bills.**
 
-[prompty.com](https://prompty.com) | [Documentation](https://prompty.com/docs) | [AI Providers Directory](https://prompty.com/providers)
+[prompty.com](https://prompty.com) | [Documentation](https://prompty.com/docs) | [AI Providers Directory](https://prompty.com/providers) | [Attestation Endpoint](https://prompty.com/api/tee/quote)
 
 ---
 
@@ -35,6 +35,10 @@ Unlike simple character-reduction systems that map words 1:1, Prompty's compress
 ### 3. VS Code Extension
 - Run compression instantly on any active text editor using the integrated command palette.
 - Supports `TokenShrink: Compress Selection` and `TokenShrink: Compress File` to optimize prompt-engineering workflows before committing prompt files to code.
+
+### 4. Cryptographic Proof of Privacy (TEE)
+- Integrates with `@phala/dstack-sdk` to allow secure enclaves deployment.
+- Exposes a dedicated hardware attestation endpoint `/api/tee/quote` to cryptographically prove that prompts are processed strictly in-memory and are never leaked, sniffed, or logged.
 
 ---
 
@@ -187,21 +191,76 @@ const res = await fetch('http://localhost:11434/api/chat', {
 
 ---
 
+## 🔒 Cryptographic Attestation API (TEE Integration)
+
+To prove cryptographically that Prompty does not log or store prompt contents, you can deploy the stack inside a **Trusted Execution Environment (TEE)** using Intel SGX/TDX or AMD SEV.
+
+Once deployed on a secure host like **Phala Network Cloud** or Automata, you can request hardware-level quotes:
+
+```bash
+GET /api/tee/quote
+```
+
+Response JSON:
+```json
+{
+  "success": true,
+  "tee": "Phala Network / Dstack",
+  "quote": {
+    "quote": "030002000000000000000000...",
+    "mrEnclave": "a4fbcde0123ef6...",
+    "mrSigner": "7b8a9c0d1e2f3..."
+  }
+}
+```
+
+### Deployment (TEE / Compose)
+To launch Prompty as a TEE-secured container:
+1. **Build and Tag:**
+   ```bash
+   docker build -t your-registry/prompty:tee .
+   docker push your-registry/prompty:tee
+   ```
+2. **Deploy via dstack-cli:**
+   ```bash
+   npm install -g @phala/dstack-cli
+   dstack deploy -f compose.yaml
+   ```
+
+---
+
 ## 🛠️ Local Installation & Development
 
 ### 1. Prerequisites
 - Node.js 20+ / NPM
 - PostgreSQL database (e.g., Neon serverless)
 
-### 2. Setup Workspace
+### 2. Environment Variables (`.env.local`)
+Create a `.env.local` file in the root workspace and supply the following parameters:
+```env
+# Database Connection
+DATABASE_URL="postgresql://user:password@host/dbname?sslmode=require"
+
+# NextAuth Config (Use `npx auth secret` to generate)
+NEXTAUTH_SECRET="your-nextauth-secret-key"
+
+# OAuth Providers
+GITHUB_CLIENT_ID="your-github-oauth-client-id"
+GITHUB_CLIENT_SECRET="your-github-oauth-client-secret"
+GOOGLE_CLIENT_ID="your-google-oauth-client-id"
+GOOGLE_CLIENT_SECRET="your-google-oauth-client-secret"
+
+# Stripe Payments Integration
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_PRO_PRICE_ID="price_1T2hL0CuvMbO5QrvUJPEMHqC"
+STRIPE_TEAM_PRICE_ID="price_1T2hNGCuvMbO5QrvNHe0Pf29"
+```
+
+### 3. Setup Workspace
 ```bash
 # Clone the repository
 git clone https://github.com/learnerabhinavdwivedi-droid/prompty.git
 cd "token shrink"
-
-# Set up local configuration
-cp .env.example .env.local
-# Open .env.local and configure your DATABASE_URL, NextAuth credentials, and keys
 
 # Install dependencies
 npm install
@@ -215,10 +274,10 @@ npm run dev
 
 The application will be accessible at `http://localhost:3000`.
 
-### 3. Running Tests
+### 4. Running Tests
 The suite includes unit and integration tests covering strategies, token-saving margins, billing routines, and RosettaStone structures.
 ```bash
-# Run full suite
+# Run full suite (51 tests)
 npm test
 
 # Run tests in hot-reload watch mode
@@ -238,20 +297,6 @@ npm run test:watch
 - [ ] Native Browser Extension (ChatGPT, Claude, & Gemini web app injection)
 - [ ] Sub-agent vocab inheritance protocol
 - [ ] Enterprise analytics dashboard & TEE cryptographic self-hosting guide
-
----
-
-## 🔒 Security & Cryptographic Privacy
-
-- **Zero Logging Policy:** Prompts sent through our API are processed wholly in-memory and immediately garbage-collected. We never store prompt payloads or content.
-- **Edge Deployment Compatible:** Prompty executes entirely client-side. Your inputs do not leave your own server context or network perimeter.
-- **Trusted Execution Environment (TEE):** The Prompty backend is fully compatible with secure enclave deployments (e.g. Phala Network / AWS Nitro Enclaves) to cryptographically prove that no input sniffing takes place.
-
----
-
-## 👥 Authors & Contributions
-
-Built with care by [Abhinav Dwivedi](https://github.com/learnerabhinavdwivedi-droid). We welcome PRs, dictionary optimizations, and extension wrappers. Review our [CONTRIBUTING.md](CONTRIBUTING.md) to get started!
 
 ---
 
