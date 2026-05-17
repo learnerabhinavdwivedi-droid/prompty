@@ -9,7 +9,7 @@ import TiltWrapper from '@/components/tilt-wrapper';
 
 export default function Home() {
   return (
-    <div className="bg-[#080808] flex-1 text-[#f0f0f0] overflow-x-hidden selection:bg-[#a855f7]/30">
+    <div className="bg-[#080808] text-[#f0f0f0] overflow-x-hidden selection:bg-[#a855f7]/30">
       <main className="pt-16">
         {/* Hero Section */}
         <section className="px-8 pt-16 pb-24 relative flex flex-col items-center justify-center min-h-[85vh]">

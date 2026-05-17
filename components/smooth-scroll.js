@@ -12,7 +12,10 @@ export default function SmoothScroll({ children }) {
 
     async function init() {
       const Lenis = (await import("lenis")).default;
+      const container = document.getElementById("main-scroll-container");
       lenis = new Lenis({
+        wrapper: container || window,
+        content: container ? container.firstElementChild : document.body,
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
@@ -21,7 +24,7 @@ export default function SmoothScroll({ children }) {
       });
 
       function raf(time) {
-        lenis.raf(time);
+        lenis?.raf(time);
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);

@@ -199,7 +199,7 @@ export default function RootLayout({ children }) {
           </div>
 
           {/* Main Content Area */}
-          <div className="flex-1 flex flex-col h-screen overflow-y-auto relative bg-[#080808]">
+          <div id="main-scroll-container" className="flex-1 flex flex-col h-screen overflow-y-auto relative bg-[#080808]">
             <SmoothScroll>{children}</SmoothScroll>
           </div>
         </Providers>

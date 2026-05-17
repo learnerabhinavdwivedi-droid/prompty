@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'AI Provider Directory — TokenShrink',
-  description: 'Compare AI API providers, pricing, and models. TokenShrink works with every LLM provider — compress your prompts and save on all of them.',
+  title: 'AI Provider Directory — Prompty',
+  description: 'Compare AI API providers, pricing, and models. Prompty works with every LLM provider — compress your prompts and save on all of them.',
 };
 
 const providers = [
@@ -130,14 +130,14 @@ export default function ProvidersPage() {
             AI Provider <span className="text-[#a855f7]">Directory</span>
           </h1>
           <p className="mt-4 text-[#888888] max-w-2xl mx-auto font-medium leading-relaxed">
-            Compare pricing across major AI API providers. TokenShrink compresses your prompts before you send them — saving you money with every provider listed here.
+            Compare pricing across major AI API providers. Prompty compresses your prompts before you send them — saving you money with every provider listed here.
           </p>
         </div>
 
         {/* How savings work callout */}
         <div className="mb-12 p-6 rounded-2xl border border-[#a855f7]/30 bg-[#a855f7]/10 text-center backdrop-blur-md shadow-[0_0_30px_rgba(168,85,247,0.05)] relative z-10">
           <p className="text-sm text-white/90">
-            <strong className="text-[#a855f7]">How it works:</strong> Compress your prompt with TokenShrink, then paste the compressed version into your provider of choice. Fewer tokens in = lower cost. It works with every provider below.
+            <strong className="text-[#a855f7]">How it works:</strong> Compress your prompt with Prompty, then paste the compressed version into your provider of choice. Fewer tokens in = lower cost. It works with every provider below.
           </p>
         </div>
 
@@ -155,7 +155,7 @@ export default function ProvidersPage() {
                     {provider.name}
                   </h2>
                   <span className="text-[10px] uppercase tracking-wider text-[#a855f7] bg-[#a855f7]/10 px-2.5 py-1 rounded-full font-bold border border-[#a855f7]/20">
-                    Works with TokenShrink
+                    Works with Prompty
                   </span>
                 </div>
                 <p className="text-xs text-[#888888] mt-1.5">{provider.tagline}</p>
@@ -208,7 +208,7 @@ export default function ProvidersPage() {
             href="/login"
             className="inline-block px-10 py-4 bg-[#a855f7] text-black font-bold rounded-xl hover:bg-[#9333ea] transition-all text-sm shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:scale-105"
           >
-            Try TokenShrink Advanced
+            Try Prompty Advanced
           </Link>
         </div>
       </section>
