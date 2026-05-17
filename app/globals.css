@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-bg: #080808;
+  --color-bg-secondary: #111111;
+  --color-bg-card: #161616;
+  --color-border: #1e1e1e;
+  --color-border-hover: #333333;
+  --color-savings: #a855f7;
+  --color-savings-dim: #6b21a8;
+  --color-cost: #ef4444;
+  --color-cost-dim: #7f1d1d;
+  --color-text: #f0f0f0;
+  --color-text-secondary: #c0c0c0;
+  --color-text-muted: #888888;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), var(--font-geist-mono), 'Fira Code', monospace;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes pulse-savings {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-pulse-savings {
+  animation: pulse-savings 2s ease-in-out 1;
+}
+
+.animate-count-up {
+  animation: count-up 0.4s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+/* Terminal cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Data stream - horizontal lines moving */
+@keyframes data-stream {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+
+.data-stream-line {
+  position: absolute;
+  height: 1px;
+  width: 200px;
+  background: linear-gradient(90deg, transparent, #a855f7, transparent);
+  pointer-events: none;
+}
+.data-stream-line:nth-child(1) { top: 20%; animation: data-stream 6s linear 0s infinite; }
+.data-stream-line:nth-child(2) { top: 45%; animation: data-stream 8s linear 2s infinite; }
+.data-stream-line:nth-child(3) { top: 70%; animation: data-stream 5s linear 4s infinite; }
+
+/* Terminal prompt style */
+.terminal-prompt::before {
+  content: '> ';
+  color: #a855f7;
+  opacity: 0.7;
+}
+
+/* Compression bar animation */
+@keyframes compress-bar {
+  0% { width: 100%; }
+  100% { width: 15%; }
+}
+
+/* Glowing border */
+.savings-glow {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), inset 0 0 20px rgba(168, 85, 247, 0.05);
+}
+
+/* Aurora hover glow — set --mx/--my via JS onMouseMove */
+.aurora-hover {
+  position: relative;
+  overflow: hidden;
+}
+.aurora-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(168, 85, 247, 0.04), transparent 60%);
+  pointer-events: none;
+}
+
+/* Diff highlights for CompressorWidget */
+.diff-removed {
+  background: rgba(239, 68, 68, 0.12);
+  color: rgba(239, 68, 68, 0.7);
+  text-decoration: line-through;
+  text-decoration-color: rgba(239, 68, 68, 0.3);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+.diff-added {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+  border-radius: 2px;
+  padding: 0 2px;
+  font-weight: 500;
+}
+
+/* Shrinkray beam animations */
+@keyframes ray-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+}
+.ray-tip-glow {
+  animation: ray-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes ray-beam {
+  0% { opacity: 0; stroke-dashoffset: 30; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+.ray-beam {
+  animation: ray-beam 2s ease-out infinite;
+  stroke-dasharray: 8 4;
+}
+
+/* Selection color — savings purple */
+::selection {
+  background: rgba(168, 85, 247, 0.2);
+  color: inherit;
+}
+
+::-moz-selection {
+  background: rgba(168, 85, 247, 0.2);
+  color: inherit;
+}
+
+/* View Transitions API */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}

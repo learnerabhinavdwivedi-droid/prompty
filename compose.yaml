@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  prompty:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # If deploying on Phala Network / Automata, TEE services might inject env vars automatically.
+      # Fill in necessary .env variables below for database, Stripe, etc.
+      # - DATABASE_URL=...
+    restart: always

@@ -1,0 +1,51 @@
+{
+  "name": "prompty",
+  "version": "2.0.0",
+  "description": "Same AI, fewer tokens. Free forever. — prompty.com",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "next lint",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "keywords": [
+    "ai",
+    "tokens",
+    "compression",
+    "llm",
+    "openai",
+    "anthropic"
+  ],
+  "author": "learnerabhinavdwivedi-droid",
+  "license": "MIT",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@phala/dstack-sdk": "^0.1.7",
+    "@sentry/nextjs": "^10.43.0",
+    "@tailwindcss/postcss": "^4.2.0",
+    "@vercel/analytics": "^1.6.1",
+    "@vercel/kv": "^3.0.0",
+    "drizzle-orm": "^0.45.1",
+    "lenis": "^1.3.18",
+    "next": "^16.1.6",
+    "next-auth": "^5.0.0-beta.30",
+    "postcss": "^8.5.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-parallax-tilt": "^1.7.320",
+    "stripe": "^20.3.1",
+    "tailwindcss": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "@vitest/coverage-v8": "^4.1.0",
+    "drizzle-kit": "^0.18.1",
+    "gpt-tokenizer": "^3.4.0",
+    "typescript": "5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

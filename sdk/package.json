@@ -1,0 +1,46 @@
+{
+  "name": "prompty",
+  "version": "2.1.0",
+  "description": "Token-aware AI prompt compression — same results, fewer tokens. Works with every LLM.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "ai",
+    "llm",
+    "tokens",
+    "compression",
+    "prompt",
+    "openai",
+    "anthropic",
+    "claude",
+    "gpt",
+    "tokenizer",
+    "bpe"
+  ],
+  "author": "learnerabhinavdwivedi-droid",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learnerabhinavdwivedi-droid/prompty.git"
+  },
+  "homepage": "https://prompty.com",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "gpt-tokenizer": ">=2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "gpt-tokenizer": {
+      "optional": true
+    }
+  }
+}
