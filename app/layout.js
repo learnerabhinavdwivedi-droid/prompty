@@ -160,10 +160,10 @@ const NAV_ITEMS = [
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${spaceMono.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-[#080808] font-sans antialiased text-white flex overflow-hidden selection:bg-[#a855f7]/30">
+      <body className="min-h-screen bg-[#080808] font-sans antialiased text-white flex selection:bg-[#a855f7]/30">
         <Providers>
           {/* 3D Glassmorphic Floating Pill Dock */}
-          <div className="w-24 pl-6 py-8 flex flex-col shrink-0 items-center justify-center relative z-50">
+          <div className="w-24 pl-6 py-8 flex flex-col shrink-0 items-center justify-center sticky top-0 h-screen z-50">
             <div className="w-16 bg-[#0c0c0c] border border-white/10 rounded-[28px] p-2.5 flex flex-col items-center gap-4 shadow-[0_10px_30px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl">
               
               {/* Brand Gem Button */}
@@ -199,7 +199,7 @@ export default function RootLayout({ children }) {
           </div>
 
           {/* Main Content Area */}
-          <div id="main-scroll-container" className="flex-1 flex flex-col h-screen overflow-y-auto relative bg-[#080808]">
+          <div className="flex-1 flex flex-col relative bg-[#080808]">
             <SmoothScroll>{children}</SmoothScroll>
           </div>
         </Providers>

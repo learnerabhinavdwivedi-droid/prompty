@@ -16,12 +16,8 @@ export default function SmoothScroll({ children }) {
 
     async function init() {
       const Lenis = (await import("lenis")).default;
-      const container = document.getElementById("main-scroll-container");
-      const content = document.getElementById("main-scroll-content");
       
       lenis = new Lenis({
-        wrapper: container || window,
-        content: content || document.body,
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
@@ -48,24 +44,13 @@ export default function SmoothScroll({ children }) {
     };
   }, []);
 
-  // Reset scroll to top and recalculate dimensions on route change
+  // Reset scroll to top on route change
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
-      
-      // Delay resize slightly to let browser complete rendering/painting
-      const timer = setTimeout(() => {
-        lenisRef.current?.resize();
-      }, 100);
-
-      return () => clearTimeout(timer);
     }
   }, [pathname]);
 
-  return (
-    <div id="main-scroll-content" className="w-full min-h-full flex flex-col">
-      {children}
-    </div>
-  );
+  return children;
 }
 
