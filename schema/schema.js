@@ -1,7 +1,7 @@
-const { pgTable, text, integer, timestamp, real, varchar, uniqueIndex, index } = require('drizzle-orm/pg-core');
-const { sql } = require('drizzle-orm');
+import { pgTable, text, integer, timestamp, real, varchar, uniqueIndex, index } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
-const users = pgTable('users', {
+export const users = pgTable('users', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   email: text('email').notNull().unique(),
   name: text('name'),
@@ -13,7 +13,7 @@ const users = pgTable('users', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-const apiKeys = pgTable('api_keys', {
+export const apiKeys = pgTable('api_keys', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('user_id').notNull().references(() => users.id),
   keyHash: text('key_hash').notNull(),
@@ -26,7 +26,7 @@ const apiKeys = pgTable('api_keys', {
   index('api_keys_key_hash_idx').on(table.keyHash),
 ]);
 
-const compressions = pgTable('compressions', {
+export const compressions = pgTable('compressions', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('user_id').references(() => users.id),
   originalWords: integer('original_words').notNull(),
@@ -42,7 +42,7 @@ const compressions = pgTable('compressions', {
   index('compressions_user_created_idx').on(table.userId, table.createdAt),
 ]);
 
-const subscriptions = pgTable('subscriptions', {
+export const subscriptions = pgTable('subscriptions', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('user_id').notNull().references(() => users.id).unique(),
   stripeSubscriptionId: text('stripe_subscription_id').notNull().unique(),
@@ -53,7 +53,7 @@ const subscriptions = pgTable('subscriptions', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-const usageMeters = pgTable('usage_meters', {
+export const usageMeters = pgTable('usage_meters', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('user_id').notNull().references(() => users.id),
   period: varchar('period', { length: 7 }).notNull(),
@@ -64,5 +64,3 @@ const usageMeters = pgTable('usage_meters', {
 }, (table) => [
   uniqueIndex('usage_user_period_idx').on(table.userId, table.period),
 ]);
-
-module.exports = { users, apiKeys, compressions, subscriptions, usageMeters };

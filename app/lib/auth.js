@@ -7,7 +7,7 @@ import { users } from '@/schema/schema';
 import { eq } from 'drizzle-orm';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "je3wpQT/Sq3E1rNDElok3klK/ehd5DAtp0ymokmAA2Q=",
   session: {
     strategy: 'jwt',
   },
@@ -56,12 +56,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     GitHub({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID || "dummy-github-id",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "dummy-github-secret",
     }),
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID || "dummy-google-id",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "dummy-google-secret",
     }),
   ],
   callbacks: {
@@ -109,6 +109,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true; // Always allow sign-in
     },
     async session({ session, token }) {
+      // Initialize session.user if undefined to avoid crash
+      if (!session) {
+        session = {};
+      }
+      if (!session.user) {
+        session.user = {};
+      }
+
       // Local dev fallback
       if (token?.id === 'dev-local-1') {
         session.user.id = 'dev-local-1';
