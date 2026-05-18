@@ -67,9 +67,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {
-        token.id = user.id;
-        token.plan = user.plan;
         token.email = user.email;
+        // Fetch database UUID for consistency across OAuth and Credentials users
+        try {
+          const dbUser = await db
+            .select()
+            .from(users)
+            .where(eq(users.email, user.email))
+            .limit(1);
+          if (dbUser.length > 0) {
+            token.id = dbUser[0].id;
+            token.plan = dbUser[0].plan || 'advanced';
+          } else {
+            token.id = user.id;
+            token.plan = user.plan || 'advanced';
+          }
+        } catch (e) {
+          console.error('[Auth] JWT DB lookup failed, falling back to token defaults:', e?.message);
+          token.id = user.id;
+          token.plan = user.plan || 'advanced';
+        }
       }
       if (account?.provider && account.provider !== 'credentials') {
         token.provider = account.provider;
