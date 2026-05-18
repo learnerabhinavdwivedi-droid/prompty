@@ -1,7 +1,7 @@
 {
   "name": "prompty",
   "version": "2.0.0",
-  "description": "Same AI, fewer tokens. Free forever. — prompty.com",
+  "description": "Same AI, fewer tokens. Token-aware prompt compression — built by Abhinav Dwivedi.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

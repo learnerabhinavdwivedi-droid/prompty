@@ -1,58 +1,136 @@
-# Contributing to TokenShrink
+# Contributing to TokenShrink (Prompty)
 
-Thanks for your interest in contributing!
+Hey, thanks for wanting to contribute! This is a solo project I built and maintain, so I genuinely appreciate any help.
 
-## Getting started
+Quick orientation: the project has two main parts:
 
-1. Fork the repo
-2. Clone your fork
-3. Copy `.env.example` to `.env.local` and fill in the values
-4. Install dependencies: `npm install`
-5. Push the database schema: `npm run db:push`
-6. Start the dev server: `npm run dev`
+1. **The npm SDK** (`sdk/src/`) — the core compression engine. Published as `prompty` on npm.
+2. **The Next.js web app** (`app/`) — the tokenshrink.com platform, dashboard, auth, billing, etc.
 
-## What to work on
+The compression logic lives in `sdk/src/` and is re-exported by `app/lib/compression/`. If you change the engine, you're changing both.
 
-- Check [open issues](https://github.com/learnerabhinavdwivedi-droid/prompty/issues) for things to work on
-- Compression improvements: better abbreviation dictionaries, new domain support
-- Bug fixes and test coverage
+---
 
-## Compression dictionaries
+## Getting Started
 
-The compression engine lives in both `sdk/src/` (npm package) and `app/lib/compression/` (website). Keep them in sync.
+```bash
+# 1. Fork and clone
+git clone https://github.com/YOUR_USERNAME/prompty.git
+cd prompty
 
-Key files:
-- `dictionaries.js` — word and phrase abbreviation mappings
-- `engine.js` — the 4-phase compression pipeline (token-aware in v2.0)
-- `rosetta.js` — generates the decoder header for LLMs
-- `strategies.js` — auto-detects content domain
-- `token-costs.js` — precomputed token costs (auto-generated, DO NOT EDIT)
-- `utils.js` / `billing.js` — `countTokens()`, `replacementTokenSavings()`
+# 2. Install dependencies
+npm install
 
-When adding new abbreviations, make sure:
-- The replacement **actually saves tokens** — run `node scripts/generate-token-costs.mjs` to verify
-- The abbreviation is unambiguous in context
-- If it's universally understood by LLMs, add it to `UNIVERSAL_ABBREVIATIONS`
-- If not universal, the Rosetta Stone header will include a decoder entry automatically
-- After changing dictionaries, regenerate token-costs.js: `node scripts/generate-token-costs.mjs`
+# 3. Set up environment
+cp .env.example .env.local
+# Fill in DATABASE_URL, AUTH_SECRET, OAuth credentials
+
+# 4. Push the DB schema
+npm run db:push
+
+# 5. Start dev server
+npm run dev
+```
+
+The app runs at `http://localhost:3000`.
+
+---
+
+## Auth Setup (Local Dev)
+
+For GitHub/Google OAuth to work locally, you'll need to:
+
+**GitHub:**
+1. Go to [github.com/settings/developers](https://github.com/settings/developers)
+2. Create a new OAuth App
+3. Set callback URL: `http://localhost:3000/api/auth/callback/github`
+4. Copy Client ID and Secret to `.env.local`
+
+**Google:**
+1. Go to [console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials)
+2. Create OAuth 2.0 credentials
+3. Add authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
+4. Copy Client ID and Secret to `.env.local`
+
+You can also just use the email login — it'll create a local user and fall back to local mode if the DB isn't configured.
+
+---
+
+## Key Files
+
+```
+sdk/src/
+├── engine.js          # 4-phase compression pipeline (main logic)
+├── dictionaries.js    # Word/phrase → abbreviation mappings
+├── rosetta.js         # Rosetta Stone header generation
+├── strategies.js      # Domain auto-detection (code, medical, business, etc.)
+├── token-costs.js     # Precomputed BPE token costs — DO NOT EDIT MANUALLY
+└── utils.js           # countTokens(), replacementTokenSavings()
+
+app/lib/
+├── auth.js            # NextAuth v5 config
+├── db.js              # Drizzle + Neon Postgres
+└── compression/       # Re-exports from sdk/src/
+
+schema/
+└── schema.js          # Drizzle table definitions
+
+tests/                 # Vitest tests (51 tests)
+```
+
+---
+
+## Adding New Abbreviations
+
+This is the most impactful thing to contribute. The dictionaries (`sdk/src/dictionaries.js`) are where token savings actually come from.
+
+Rules:
+1. **The replacement must actually save tokens.** Run `node scripts/generate-token-costs.mjs` to verify before adding.
+2. **The abbreviation must be unambiguous in context.** Avoid anything that could change meaning.
+3. If an LLM universally understands the abbreviation (e.g. `config`, `init`, `DB`), add it to `UNIVERSAL_ABBREVIATIONS` — the Rosetta header won't be needed.
+4. If it needs decoding, it goes in the regular dictionaries — the Rosetta header will explain it to the model automatically.
+5. After changing dictionaries, always regenerate token costs: `node scripts/generate-token-costs.mjs`
+
+Common pitfalls:
+- `function → fn` saves 0 tokens (both are 1 token) — skip it
+- `should → shd` actually costs more tokens — blocked by the engine
+- `configuration → config` saves 1 token — valid!
+
+---
 
 ## Testing
 
 ```bash
-npm test          # run all 51 tests
-npm run test:watch  # watch mode
+npm test            # run all 51 tests
+npm run test:watch  # watch mode for development
 ```
 
-Tests cover: compression engine, Rosetta Stone, domain detection, billing/token counting, and token cost verification.
+Tests cover compression engine output, Rosetta Stone format, domain detection, token cost verification, and billing utilities. Please add/update tests when changing compression logic.
 
-## Pull requests
+---
 
-- Keep PRs focused — one feature or fix per PR
-- Test your changes locally before submitting
-- Describe what changed and why in the PR description
+## Pull Requests
 
-## Code style
+- Keep PRs focused — one thing per PR makes review much faster
+- Test locally before submitting
+- If you're changing compression behavior, update the relevant test file
+- Describe what you changed and why in the PR description
 
-- Plain JavaScript (no TypeScript)
+The faster the review, the faster it ships. Small PRs = fast merges.
+
+---
+
+## Code Style
+
+- Plain JavaScript (not TypeScript) for the app layer
+- TypeScript declarations are in the SDK for library consumers
 - Next.js App Router conventions
 - Tailwind 4 for styling
+
+---
+
+## Questions
+
+Open an issue if something's unclear. I check GitHub most days.
+
+— Abhinav

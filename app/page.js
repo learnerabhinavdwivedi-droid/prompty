@@ -24,7 +24,7 @@ export default function Home() {
             <FadeIn>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-[#c0c0c0] mb-8 backdrop-blur-md shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#a855f7] animate-pulse" />
-                Prompty v2.0 is now live
+                TokenShrink v2.1 — built by Abhinav Dwivedi
               </div>
             </FadeIn>
 
@@ -195,7 +195,7 @@ export default function Home() {
             </FadeIn>
             <FadeIn delay={100}>
               <p className="text-xl text-[#888888] mb-12 max-w-2xl mx-auto">
-                Join thousands of developers using Prompty to optimize their LLM pipelines. Open source and free forever for basic usage.
+                I built this because LLM token costs were killing my side projects. Now it's open source and free for everyone. Give it a try.
               </p>
             </FadeIn>
             <FadeIn delay={200}>
@@ -216,11 +216,12 @@ export default function Home() {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
               <span className="text-[#a855f7] text-xl leading-none font-black">◈</span>
-              <span className="text-lg font-bold tracking-tight text-white">Prompty</span>
+              <span className="text-lg font-bold tracking-tight text-white">TokenShrink</span>
             </div>
             
             <div className="flex flex-wrap justify-center gap-8 text-sm font-semibold text-[#888888]">
               <Link href="/docs" className="hover:text-white transition-colors">Documentation</Link>
+              <Link href="/providers" className="hover:text-white transition-colors">AI Providers</Link>
               <Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link>
               <a href="https://github.com/learnerabhinavdwivedi-droid/prompty" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
               <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
@@ -228,7 +229,16 @@ export default function Home() {
             </div>
             
             <p className="text-[#666666] text-sm font-medium">
-              &copy; {new Date().getFullYear()} Prompty. Open Source.
+              Built by{' '}
+              <a
+                href="https://github.com/learnerabhinavdwivedi-droid"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#a855f7] hover:text-[#c084fc] transition-colors font-semibold"
+              >
+                Abhinav Dwivedi
+              </a>
+              {' '}· MIT License
             </p>
           </div>
         </footer>

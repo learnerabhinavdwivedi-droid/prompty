@@ -1,93 +1,101 @@
-# Prompty Build Progress
+# TokenShrink (Prompty) — Build Log
 
-## Status: v2.1.0 — Ship to 100%
-**Last updated:** 2026-02-21
+**Author:** Abhinav Dwivedi ([@learnerabhinavdwivedi-droid](https://github.com/learnerabhinavdwivedi-droid))
+**Last updated:** 2026-05-18
+**Status:** v2.1.0 — 100% complete and deployed
 
-## Core Product: 100% Complete
+---
 
-### v1.0 Build: COMPLETE
-- [x] Next.js 16 + Tailwind CSS 4 project (38 files, 14 routes, clean build)
-- [x] Compression engine (4 strategies, 5 domain dictionaries, Rosetta Stone)
+## What's Done
+
+### Core Platform — COMPLETE
+- [x] Next.js 16 + Tailwind CSS 4 app (clean build, Vercel deployed)
+- [x] Compression engine: 4-phase pipeline, 5 domain dictionaries, Rosetta Stone header
 - [x] Landing page with live CompressorWidget demo
-- [x] Pricing, Login, Dashboard, Docs pages
-- [x] API routes: compress, decompress, keys, usage, billing (checkout/portal/webhook)
-- [x] Drizzle ORM schema pushed to Neon (5 tables live)
-- [x] GitHub repo: github.com/learnerabhinavdwivedi-droid/prompty (public, main branch)
-- [x] CI pipeline: GitHub Actions (runs tests on push/PR)
+- [x] Pricing page
+- [x] Docs page
+- [x] AI Providers directory page
+- [x] Integrations page
+- [x] Login page (GitHub OAuth, Google OAuth, email credentials)
+- [x] Dashboard / API key management
+- [x] Privacy + Terms pages
 
-### v2.0 Token-Aware Compression: COMPLETE (2026-02-21)
+### v2.0 Token-Aware Compression — COMPLETE
 - [x] Precomputed TOKEN_COSTS lookup (588 entries, cl100k_base / GPT-4)
-- [x] ZERO_SAVINGS set (134 entries) — skip replacements that save 0 tokens
-- [x] NEGATIVE_SAVINGS set (45 entries) — block replacements that cost MORE tokens
-- [x] Removed 130+ zero-savings and 45 negative-savings entries from dictionaries
-- [x] `countTokens(text, tokenizer?)` — 3-tier: custom → lookup → ceil(charLen/4)
-- [x] `replacementTokenSavings(original, replacement, tokenizer?)` — token delta check
+- [x] ZERO_SAVINGS set (134 entries) — skip zero-gain substitutions
+- [x] NEGATIVE_SAVINGS set (45 entries) — block substitutions that cost more
+- [x] Pruned 130+ zero-savings and 45 negative-savings entries from dictionaries
+- [x] `countTokens(text, tokenizer?)` — 3-tier fallback: custom → lookup → char estimate
+- [x] `replacementTokenSavings(original, replacement)` — delta check before applying
 - [x] Pluggable tokenizer: `compress(text, { tokenizer: t => encode(t).length })`
-- [x] New stats: originalTokens, compressedTokens, rosettaTokens, totalCompressedTokens, tokenizerUsed
-- [x] Token-aware Rosetta Stone net-positive filter
-- [x] All 51 tests passing (5 test files, vitest)
-- [x] Benchmarked: 12.6% real savings on verbose prompts, zero false positives
-- [x] npm SDK published: `tokenshrink@2.0.0`
-- [x] Website updated with token counts in UI
-- [x] Docs page updated with tokenizer option + new API fields
-- [x] README + SDK README updated with real benchmarks
-- [x] Committed + pushed to main → Vercel auto-deployed
+- [x] Full stats: originalTokens, compressedTokens, rosettaTokens, totalCompressedTokens
+- [x] 51 tests passing (5 test files, vitest)
+- [x] Real benchmarks: 12.6% savings on verbose prompts, zero false positives
 
-### v2.1 Ship to 100%: COMPLETE (2026-02-21)
-- [x] Fixed API key access bug — removed Pro/Team plan gate (free users can now create keys)
-- [x] Dashboard: dynamic plan display (capitalizes session plan name)
-- [x] Dashboard: "Dollars saved" stat card added
-- [x] Dashboard: empty state for new users with CTA to homepage compressor
-- [x] Dashboard: API Keys management section (create, list, revoke, copy key)
-- [x] SDK/app code deduplication — app/lib/compression/ now re-exports from sdk/src/
-- [x] app/lib/billing.js utility functions now re-exported from SDK (single source of truth)
-- [x] VS Code extension — "Compress Selection" and "Compress File" commands with status bar
+### v2.1 Platform — COMPLETE
+- [x] API key generator — create, list, revoke, copy
+- [x] Dashboard telemetry: words processed, compressions, tokens saved, dollar savings
+- [x] Dashboard: empty state for new users with CTA
+- [x] SDK/app deduplication — `app/lib/compression/` re-exports from `sdk/src/`
+- [x] VS Code extension: "Compress Selection" + "Compress File" + status bar indicator
 
-### Deployment: COMPLETE
-- [x] Vercel connected (auto-deploys from main)
+### Auth System — COMPLETE (2026-05-18)
+- [x] NextAuth v5 (beta.30) configured
+- [x] GitHub OAuth provider
+- [x] Google OAuth provider
+- [x] Email/credentials fallback (no password required — creates user on first login)
+- [x] Neon Postgres user persistence via Drizzle ORM
+- [x] Local dev fallback mode (works without DB configured)
+- [x] `AUTH_SECRET` + `AUTH_URL` env vars set correctly for v5
+- [x] Login page with Suspense boundary (Next.js 15 compatible)
+- [x] OAuth sign-in never blocked even if DB is temporarily down
+- [x] Schema `provider` field: default `'credentials'` (not null safe)
+
+### Deployment — COMPLETE
+- [x] Vercel auto-deploys from main branch
 - [x] tokenshrink.com live (200 OK)
-- [x] npm published as `prompty@2.0.0` (account: learnerabhinavdwivedi-droid)
+- [x] npm published: `prompty@2.0.0` (account: learnerabhinavdwivedi-droid)
+- [x] Neon DB: 5 tables live (users, apiKeys, compressions, subscriptions, usageMeters)
+- [x] GitHub Actions CI (runs 51 tests on push/PR)
 
-### Promotion: STARTED (2026-02-21)
-- [x] Posted to r/node — got engagement (questions about output quality, token minimizer tradeoffs)
-- [x] Posted to Hacker News
-- [x] Posted to OpenClaw community (combined with API Guardrails)
-- [ ] Reply to original r/LocalLLaMA critics with real benchmark data
-- [ ] Post to r/LocalLLaMA with v2.0 announcement
+---
 
-## Env Vars (.env.local)
-- [x] DATABASE_URL — Neon PostgreSQL (schema pushed, tables live)
-- [x] NEXTAUTH_SECRET — generated
-- [x] GITHUB_CLIENT_ID + SECRET — OAuth app created
-- [x] GOOGLE_CLIENT_ID + SECRET — OAuth app created
-- [x] STRIPE_SECRET_KEY — test key set
-- [x] STRIPE_PRO_PRICE_ID — price_1T2hL0CuvMbO5QrvUJPEMHqC ($19/mo)
-- [x] STRIPE_TEAM_PRICE_ID — price_1T2hNGCuvMbO5QrvNHe0Pf29 ($79/mo)
-- [ ] STRIPE_PUBLISHABLE_KEY — need pk_test_ from Stripe dashboard
-- [ ] STRIPE_WEBHOOK_SECRET — set after Vercel deploy
+## Environment Variables Status
+- [x] `DATABASE_URL` — Neon PostgreSQL
+- [x] `AUTH_SECRET` — NextAuth v5 secret
+- [x] `AUTH_URL` / `NEXTAUTH_URL` — http://localhost:3000
+- [x] `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET` — OAuth app configured
+- [x] `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` — OAuth app configured
+- [ ] `STRIPE_SECRET_KEY` — needed for billing features
+- [ ] `STRIPE_WEBHOOK_SECRET` — set after Vercel deploy
 
-## Roadmap (Not Yet Started)
-- [ ] Browser extension for ChatGPT/Claude web UI
-- [ ] Self-hosted Docker image
-- [ ] Multilingual prompt support
-- [ ] Scientific/academic compression domains
-- [ ] Compression analytics dashboard
-- [ ] Automated npm publish in CI
+---
+
+## Roadmap (Not Started)
+- [ ] Browser extension (ChatGPT, Claude, Gemini web UI injection)
+- [ ] Multilingual prompt compression (French, German, Spanish)
 - [ ] Python SDK
-- [ ] Publish VS Code extension to marketplace
+- [ ] VS Code extension published to marketplace
+- [ ] Self-hosted Docker guide
+- [ ] Scientific/academic compression domains
+- [ ] Automated npm publish in CI
+- [ ] Stripe billing integration (pro tier)
+
+---
 
 ## Key Paths
-- Project: /Volumes/AI-Models/tokenshrink (symlink ~/tokenshrink)
-- Env: /Volumes/AI-Models/tokenshrink/.env.local (gitignored)
-- Schema: /Volumes/AI-Models/tokenshrink/schema/schema.js
-- SDK Engine: /Volumes/AI-Models/tokenshrink/sdk/src/engine.js
-- App Compression: /Volumes/AI-Models/tokenshrink/app/lib/compression/ (re-exports from SDK)
-- Token Costs: /Volumes/AI-Models/tokenshrink/sdk/src/token-costs.js (auto-generated)
-- VS Code Extension: /Volumes/AI-Models/tokenshrink/vscode-extension/
-- Tests: /Volumes/AI-Models/tokenshrink/tests/ (51 tests, 5 files)
+- Schema: `schema/schema.js`
+- SDK Engine: `sdk/src/engine.js`
+- App Compression: `app/lib/compression/` (re-exports from SDK)
+- Token Costs: `sdk/src/token-costs.js` (auto-generated — do not edit)
+- Auth: `app/lib/auth.js`
+- Login: `app/login/page.js`
+- VS Code Extension: `vscode-extension/`
+- Tests: `tests/` (51 tests, 5 files)
 
-## Known Issues / Notes
-- generate-token-costs.mjs has HISTORICAL_ENTRIES to preserve safety nets after dictionary cleanup
+## Known Notes
+- `generate-token-costs.mjs` has HISTORICAL_ENTRIES to preserve safety nets after dictionary cleanup
 - npm 2FA requires web auth (no OTP codes) — must publish manually via browser
-- gpt-tokenizer is devDependency only (not shipped in SDK)
+- `gpt-tokenizer` is devDependency only (not bundled in SDK)
 - VS Code extension not yet published to marketplace (needs `vsce` packaging)
+- OAuth callback URLs must be registered: `http://localhost:3000/api/auth/callback/github` and `/google`

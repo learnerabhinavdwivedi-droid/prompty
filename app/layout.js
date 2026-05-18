@@ -32,8 +32,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'Prompty — Same AI, Fewer Tokens. Ship Smarter.',
-  description: 'Compress AI prompts — same results, fewer tokens. Open source.',
+  title: 'TokenShrink — Same AI, Fewer Tokens.',
+  description: 'Token-aware prompt compression. Save up to 35% on LLM API costs without degrading model performance. Built by Abhinav Dwivedi.',
 };
 
 // 3D Faceted Lightning Bolt

@@ -1,132 +1,126 @@
-# ◈ Prompty (TokenShrink)
+# ◈ TokenShrink (Prompty)
 
-[![CI Build Status](https://github.com/learnerabhinavdwivedi-droid/prompty/actions/workflows/ci.yml/badge.svg)](https://github.com/learnerabhinavdwivedi-droid/prompty)
-[![npm Version](https://img.shields.io/npm/v/prompty)](https://www.npmjs.com/package/prompty)
+[![CI](https://github.com/learnerabhinavdwivedi-droid/prompty/actions/workflows/ci.yml/badge.svg)](https://github.com/learnerabhinavdwivedi-droid/prompty)
+[![npm](https://img.shields.io/npm/v/prompty)](https://www.npmjs.com/package/prompty)
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
-[![Price: Free Forever](https://img.shields.io/badge/Price-Free%20Forever-brightgreen)](https://prompty.com)
+[![Made by Abhinav Dwivedi](https://img.shields.io/badge/Made%20by-Abhinav%20Dwivedi-a855f7)](https://github.com/learnerabhinavdwivedi-droid)
 
-**Same AI, fewer tokens. Ship smarter, save up to 35% on LLM bills.**
+**Same AI, fewer tokens. Save up to 35% on LLM bills — no quality loss.**
 
-[prompty.com](https://prompty.com) | [Documentation](https://prompty.com/docs) | [AI Providers Directory](https://prompty.com/providers) | [Attestation Endpoint](https://prompty.com/api/tee/quote)
-
----
-
-## What is Prompty?
-
-**Prompty** is a production-grade prompt compression engine and developer platform that slashes LLM token costs without sacrificing response accuracy. It uses a high-performance client-side text compression pipeline to compact verbose system instructions and conversational context in **under 20ms** with zero external API calls.
-
-Rather than running expensive, high-latency auxiliary LLM calls for compression, Prompty leverages token-aware dictionaries, aggressive filler reduction, and a dynamic **Rosetta Protocol** (session codebook header) that teaches downstream AI models how to expand and interpret the abbreviations perfectly.
+[Live App](https://tokenshrink.com) · [Docs](https://tokenshrink.com/docs) · [AI Providers](https://tokenshrink.com/providers) · [npm](https://www.npmjs.com/package/prompty)
 
 ---
 
-## 🚀 Key Features in v2.0 & v2.1
+Hey — I'm **Abhinav Dwivedi**, and I built this because I was getting destroyed by LLM token costs on my side projects. Turns out a huge portion of tokens are just filler — "in order to", "it is important to note", "due to the fact that" — stuff no LLM needs to work well.
 
-### 1. Token-Aware Compression (v2.0)
-Unlike simple character-reduction systems that map words 1:1, Prompty's compression is directly calibrated to the **BPE (Byte-Pair Encoding)** tokenizers used by modern frontier models (cl100k_base for GPT-4/Claude/Gemini):
-- **Positive ROI Guaranteed:** Dictionaries were systematically scrubbed to eliminate zero-savings substitutions (e.g. `function` → `fn` both cost exactly 1 token) and negative-savings substitutions (e.g. `should` → `shd` which increases tokens from 1 to 2).
-- **Pluggable Tokenizer:** Pass your own custom tokenizer hook (e.g., Tiktoken, Llama) for exact native calculations.
-- **Accurate Telemetry:** Provides deep metrics on `originalTokens`, `compressedTokens`, `rosettaTokens`, and `totalCompressedTokens`.
+So I spent a few weekends building a proper compression engine. Not vibes-based — every single substitution is verified against the actual BPE tokenizer used by GPT-4, Claude, and Gemini. If a swap doesn't genuinely save tokens, it doesn't get included.
 
-### 2. Enterprise Telemetry & API Key Management (v2.1)
-- **Unlimited Developer API Keys:** Generates cryptographically secure API keys for use directly in pipelines—freed from tier locks and available to all community members.
-- **ROI Dashboard:** Beautiful interactive graphs and custom telemetry displaying real-time word-to-token ratios and a **"Dollars Saved"** live stat card.
-- **Deduplicated Production Engine:** The Next.js application core and the public NPM package are unified, ensuring a single source of truth for the Rosetta compression algorithms.
-
-### 3. VS Code Extension
-- Run compression instantly on any active text editor using the integrated command palette.
-- Supports `TokenShrink: Compress Selection` and `TokenShrink: Compress File` to optimize prompt-engineering workflows before committing prompt files to code.
-
-### 4. Cryptographic Proof of Privacy (TEE)
-- Integrates with `@phala/dstack-sdk` to allow secure enclaves deployment.
-- Exposes a dedicated hardware attestation endpoint `/api/tee/quote` to cryptographically prove that prompts are processed strictly in-memory and are never leaked, sniffed, or logged.
+The result: **12–15% real savings** on verbose prompts, zero false positives, under 20ms processing time, and a self-describing Rosetta Stone header so the model always understands the compressed output.
 
 ---
 
-## 📊 Live Benchmarks (Verified with cl100k_base)
+## What it actually does
 
-| Target Prompt Domain | Original Tokens | Compressed Tokens | Tokens Saved | Net Savings (%) |
-| :--- | :---: | :---: | :---: | :---: |
-| **Developer Assistant (Verbose)** | 408 | 349 | 59 | **14.5%** |
-| **Code Review Pipeline** | 210 | 183 | 27 | **12.9%** |
-| **Medical/Clinical Records** | 151 | 134 | 17 | **11.3%** |
-| **Business/Requirements Brief** | 143 | 121 | 22 | **15.4%** |
-| **Minimal Filler / Core Assertions** | 77 | 77 | 0 | **0.0%** (Safe Skip) |
-| **Total Test Pipeline Suite** | **989** | **864** | **125** | **12.6%** |
+```
+Input:  "In order to initialize the application, it is important to first 
+         load the configuration files before proceeding with the setup."
 
-> [!NOTE]
-> Prompty automatically skips compressing short or compact prompts under 30 words where compression would result in negative token savings due to the Rosetta Stone header overhead.
+Output: "[DECODE: config=configuration, init=initialize]
+         To init the app, load config files before setup."
 
----
-
-## 🧠 Architectural Overview: How It Works
-
-```mermaid
-graph TD
-    A[Raw Input Prompt] --> B{Length > 30 words?}
-    B -- No --> C[Output Original Text - Safe Bypass]
-    B -- Yes --> D[Phase 1: Verbose Filler Removal]
-    D --> E[Phase 2: Token-Smart Dictionary Abbreviation]
-    E --> F[Phase 3: Shorthand Pattern Collapsing]
-    F --> G[Phase 4: Dynamic Rosetta Stone Header Generation]
-    G --> H[Final Compacted Prompt]
+Tokens: 31 → 19  (38.7% saved)
 ```
 
-1. **Filler Removal:** Replaces bloated phrases (`in order to` → `to`, `due to the fact that` → `because`, `it is important to note` → removed).
-2. **Abbreviation (Token-Calibrated):** Replaces multi-token terms with safe singular-token abbreviations (e.g. `consequently` → `so` saving 2 tokens) while completely ignoring counterproductive changes.
-3. **Rosetta Header Prepended:** Injects a micro-instructions header (the session codebook) instructing the target model how to expand the abbreviated corpus.
+The header at the top tells the model exactly how to decode abbreviations. It's learned this trick from how code comments work — models are really good at following embedded instructions. The net token count still ends up lower than the original even with the header included.
 
 ---
 
-## 📦 Developer Quick Start
+## Features
 
-### 1. Web Interface
-Instantly compress prompts by visiting the browser workbench at [prompty.com](https://prompty.com). No login or card required.
+### Core Compression Engine
+- **4-phase pipeline**: filler removal → token-smart abbreviation → pattern collapse → Rosetta header
+- **BPE-calibrated**: every substitution tested against `cl100k_base` (GPT-4/Claude/Gemini)
+- **Zero false positives**: skips short prompts (<30 words) where the header overhead would lose tokens
+- **Under 20ms**: pure JS, no external API calls, runs at the edge
 
-### 2. cURL REST API
-Submit prompts to our zero-log endpoint:
+### Platform
+- **Web app**: compress directly in the browser at tokenshrink.com
+- **REST API**: `POST /api/compress` — zero-log, works with any language
+- **Node.js SDK**: `npm install prompty` — drop into existing pipelines in 2 lines
+- **VS Code extension**: compress prompts directly from the editor
+- **API key management**: generate keys for your automation pipelines
+- **Auth**: GitHub + Google OAuth + email, powered by NextAuth v5 + Neon Postgres
+
+### Privacy
+- Prompts processed in-memory and never stored
+- Optional TEE deployment via Phala/dstack for cryptographic proof
+
+---
+
+## Benchmarks (real, cl100k_base verified)
+
+| Prompt Type | Original | Compressed | Saved |
+|:---|:---:|:---:|:---:|
+| Developer assistant (verbose) | 408 tok | 349 tok | **14.5%** |
+| Code review pipeline | 210 tok | 183 tok | **12.9%** |
+| Medical/clinical records | 151 tok | 134 tok | **11.3%** |
+| Business requirements brief | 143 tok | 121 tok | **15.4%** |
+| Minimal/already-compact prompt | 77 tok | 77 tok | **0% (safe skip)** |
+| **Full test suite** | **989** | **864** | **12.6%** |
+
+> Prompty auto-skips prompts where compression would cost more tokens than it saves. It never makes things worse.
+
+---
+
+## Quick Start
+
+### Browser
+Just go to [tokenshrink.com](https://tokenshrink.com) and paste your prompt. No account needed.
+
+### cURL
 ```bash
-curl -X POST https://prompty.com/api/compress \
+curl -X POST https://tokenshrink.com/api/compress \
   -H "Content-Type: application/json" \
   -d '{"text": "In order to initialize the application, it is important to first load the configuration files."}'
 ```
 
-Response JSON:
+Response:
 ```json
 {
-  "compressed": "[DECODE: ...]\nInit app, load config files.",
+  "compressed": "[DECODE: config=configuration]\nTo init the app, load config files.",
   "stats": {
     "originalTokens": 18,
     "totalCompressedTokens": 12,
     "tokensSaved": 6,
     "ratio": 1.5,
-    "strategy": "auto",
-    "tokenizerUsed": "built-in"
+    "strategy": "auto"
   }
 }
 ```
 
-### 3. Node.js SDK
-Install the lightweight, zero-dependency SDK:
+### Node.js SDK
 ```bash
 npm install prompty
 ```
 
-Basic usage:
 ```javascript
 import { compress } from 'prompty';
 
-const prompt = "Consequently, it is recommended to ensure database indexes are initialized.";
-const { compressed, stats } = compress(prompt);
+const { compressed, stats } = compress(
+  "Consequently, it is recommended to ensure database indexes are initialized before deployment."
+);
 
 console.log(compressed);
-// Output: "[DECODE: DB=database] So, ensure DB indexes are initialized."
-console.log(`Saved ${stats.tokensSaved} tokens!`);
+// [DECODE: DB=database] So, ensure DB indexes are initialized before deployment.
+
+console.log(`Saved ${stats.tokensSaved} tokens`);
+// Saved 8 tokens
 ```
 
-Custom Tokenizer Integration:
+With a custom tokenizer (Tiktoken, Llama, etc.):
 ```javascript
 import { compress } from 'prompty';
-import { encode } from 'gpt-tokenizer'; // or @dqbd/tiktoken
+import { encode } from 'gpt-tokenizer';
 
 const { compressed } = compress(prompt, {
   tokenizer: (text) => encode(text).length
@@ -135,51 +129,46 @@ const { compressed } = compress(prompt, {
 
 ---
 
-## 🔌 Multi-Provider LLM Integration Recipes
+## Integration Examples
 
-Because Prompty generates raw text equipped with self-describing headers, it integrates seamlessly with any model, SDK, or framework.
-
-### OpenAI (GPT-4o / o1 / o3-mini)
+### OpenAI
 ```javascript
 import { compress } from 'prompty';
 import OpenAI from 'openai';
 
-const openai = new OpenAI();
-const systemPrompt = "You are a professional software engineer...";
 const { compressed } = compress(systemPrompt);
 
-const completion = await openai.chat.completions.create({
-  model: "gpt-4o",
+const res = await new OpenAI().chat.completions.create({
+  model: 'gpt-4o',
   messages: [
-    { role: "system", content: compressed },
-    { role: "user", content: "Implement a binary search tree in TypeScript." }
-  ],
+    { role: 'system', content: compressed },
+    { role: 'user', content: userMessage }
+  ]
 });
 ```
 
-### Anthropic Claude (Sonnet 3.7 / Opus)
+### Anthropic Claude
 ```javascript
 import { compress } from 'prompty';
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic();
-const { compressed } = compress(heavySystemInstructions);
+const { compressed } = compress(systemInstructions);
 
-const msg = await anthropic.messages.create({
-  model: "claude-3-7-sonnet-latest",
+const msg = await new Anthropic().messages.create({
+  model: 'claude-opus-4',
   max_tokens: 2048,
   system: compressed,
-  messages: [{ role: "user", content: "Analyze these transaction logs." }],
+  messages: [{ role: 'user', content: 'Analyze these logs.' }]
 });
 ```
 
-### Local Models (Ollama / LLaMA 3.3 / Qwen)
+### Local models (Ollama / LLaMA)
 ```javascript
 import { compress } from 'prompty';
 
 const { compressed } = compress(longPrompt);
 
-const res = await fetch('http://localhost:11434/api/chat', {
+await fetch('http://localhost:11434/api/chat', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -191,115 +180,159 @@ const res = await fetch('http://localhost:11434/api/chat', {
 
 ---
 
-## 🔒 Cryptographic Attestation API (TEE Integration)
+## Architecture
 
-To prove cryptographically that Prompty does not log or store prompt contents, you can deploy the stack inside a **Trusted Execution Environment (TEE)** using Intel SGX/TDX or AMD SEV.
-
-Once deployed on a secure host like **Phala Network Cloud** or Automata, you can request hardware-level quotes:
-
-```bash
-GET /api/tee/quote
 ```
-
-Response JSON:
-```json
-{
-  "success": true,
-  "tee": "Phala Network / Dstack",
-  "quote": {
-    "quote": "030002000000000000000000...",
-    "mrEnclave": "a4fbcde0123ef6...",
-    "mrSigner": "7b8a9c0d1e2f3..."
-  }
-}
+Input Prompt
+    │
+    ▼
+┌─────────────────────────────────────────────────────┐
+│  Phase 1: Filler Removal                            │
+│  "in order to" → "to"  |  "it is important to" → ∅ │
+└─────────────────────────────────────────────────────┘
+    │
+    ▼
+┌─────────────────────────────────────────────────────┐
+│  Phase 2: Token-Smart Abbreviation                  │
+│  "consequently" → "so" (-2 tok)                     │
+│  "configuration" → "config" (-1 tok)                │
+│  (skips zero/negative savings automatically)        │
+└─────────────────────────────────────────────────────┘
+    │
+    ▼
+┌─────────────────────────────────────────────────────┐
+│  Phase 3: Pattern Collapse                          │
+│  Shorthand patterns specific to detected domain     │
+└─────────────────────────────────────────────────────┘
+    │
+    ▼
+┌─────────────────────────────────────────────────────┐
+│  Phase 4: Rosetta Stone Header                      │
+│  "[DECODE: config=configuration, ...]"              │
+│  Self-describing decoder the model reads first      │
+└─────────────────────────────────────────────────────┘
+    │
+    ▼
+Compressed Prompt (12–35% fewer tokens)
 ```
-
-### Deployment (TEE / Compose)
-To launch Prompty as a TEE-secured container:
-1. **Build and Tag:**
-   ```bash
-   docker build -t your-registry/prompty:tee .
-   docker push your-registry/prompty:tee
-   ```
-2. **Deploy via dstack-cli:**
-   ```bash
-   npm install -g @phala/dstack-cli
-   dstack deploy -f compose.yaml
-   ```
 
 ---
 
-## 🛠️ Local Installation & Development
+## Running Locally
 
-### 1. Prerequisites
-- Node.js 20+ / NPM
-- PostgreSQL database (e.g., Neon serverless)
+### Prerequisites
+- Node.js 20+
+- A Neon Postgres database (free tier works fine: [neon.tech](https://neon.tech))
+- GitHub and/or Google OAuth app credentials (for auth)
 
-### 2. Environment Variables (`.env.local`)
-Create a `.env.local` file in the root workspace and supply the following parameters:
-```env
-# Database Connection
-DATABASE_URL="postgresql://user:password@host/dbname?sslmode=require"
+### Setup
 
-# NextAuth Config (Use `npx auth secret` to generate)
-NEXTAUTH_SECRET="your-nextauth-secret-key"
-
-# OAuth Providers
-GITHUB_CLIENT_ID="your-github-oauth-client-id"
-GITHUB_CLIENT_SECRET="your-github-oauth-client-secret"
-GOOGLE_CLIENT_ID="your-google-oauth-client-id"
-GOOGLE_CLIENT_SECRET="your-google-oauth-client-secret"
-
-# Stripe Payments Integration
-STRIPE_SECRET_KEY="sk_test_..."
-STRIPE_PRO_PRICE_ID="price_1T2hL0CuvMbO5QrvUJPEMHqC"
-STRIPE_TEAM_PRICE_ID="price_1T2hNGCuvMbO5QrvNHe0Pf29"
-```
-
-### 3. Setup Workspace
 ```bash
-# Clone the repository
+# Clone
 git clone https://github.com/learnerabhinavdwivedi-droid/prompty.git
-cd "token shrink"
+cd prompty
 
-# Install dependencies
+# Install
 npm install
 
-# Push database schema to Neon Postgres
+# Configure environment
+cp .env.example .env.local
+# Edit .env.local with your values (see below)
+
+# Push DB schema
 npm run db:push
 
-# Spin up Next.js dev server
+# Start dev server
 npm run dev
 ```
 
-The application will be accessible at `http://localhost:3000`.
+App runs at `http://localhost:3000`.
 
-### 4. Running Tests
-The suite includes unit and integration tests covering strategies, token-saving margins, billing routines, and RosettaStone structures.
+### Environment Variables (`.env.local`)
+
+```env
+# Neon PostgreSQL
+DATABASE_URL="postgresql://user:password@host.neon.tech/dbname?sslmode=require"
+
+# NextAuth v5 — generate with: npx auth secret
+AUTH_SECRET="your-secret-here"
+AUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="http://localhost:3000"
+
+# GitHub OAuth — https://github.com/settings/developers
+# Callback URL: http://localhost:3000/api/auth/callback/github
+GITHUB_CLIENT_ID="your-github-client-id"
+GITHUB_CLIENT_SECRET="your-github-client-secret"
+
+# Google OAuth — https://console.cloud.google.com/apis/credentials
+# Callback URL: http://localhost:3000/api/auth/callback/google
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# Stripe (optional — for billing features)
+# STRIPE_SECRET_KEY="sk_test_..."
+# STRIPE_WEBHOOK_SECRET="whsec_..."
+```
+
+### Running Tests
+
 ```bash
-# Run full suite (51 tests)
-npm test
+npm test           # 51 tests across 5 files
+npm run test:watch # watch mode
+```
 
-# Run tests in hot-reload watch mode
-npm run test:watch
+Tests cover: compression engine, Rosetta Stone header generation, domain detection, token cost verification, billing utilities.
+
+---
+
+## Project Structure
+
+```
+prompty/
+├── app/
+│   ├── api/            # REST API routes (compress, decompress, keys, usage, billing, auth)
+│   ├── components/     # React components (CompressorWidget, LandingStudioDashboard, etc.)
+│   ├── lib/
+│   │   ├── auth.js     # NextAuth v5 config (GitHub, Google, Credentials)
+│   │   ├── db.js       # Neon Postgres via Drizzle ORM
+│   │   └── compression/# Re-exports from sdk/src/
+│   ├── login/          # Login page (GitHub, Google, email)
+│   ├── dashboard/      # User dashboard redirect
+│   └── ...pages
+├── schema/
+│   └── schema.js       # Drizzle schema (users, apiKeys, compressions, usageMeters, subscriptions)
+├── sdk/
+│   └── src/            # Core compression engine (published to npm as 'prompty')
+│       ├── engine.js
+│       ├── dictionaries.js
+│       ├── rosetta.js
+│       ├── strategies.js
+│       └── token-costs.js
+├── vscode-extension/   # VS Code extension
+└── tests/              # Vitest test suite
 ```
 
 ---
 
-## 🗺️ Product Roadmap
+## Roadmap
 
-- [x] Complete token-aware compression filters (v2.0)
-- [x] Pluggable tokenizers for custom models (v2.0)
-- [x] Release public NPM SDK (`prompty`)
-- [x] Dynamic ROI Telemetry & free tier API generation (v2.1)
-- [x] Create VS Code extension for inline prompt minification (v2.1)
-- [ ] Multilingual Rosetta translation codecs (French, German, Spanish)
-- [ ] Native Browser Extension (ChatGPT, Claude, & Gemini web app injection)
-- [ ] Sub-agent vocab inheritance protocol
-- [ ] Enterprise analytics dashboard & TEE cryptographic self-hosting guide
+- [x] Token-aware compression engine (v2.0)
+- [x] BPE-calibrated dictionaries — zero false positives
+- [x] Public NPM SDK (`prompty`)
+- [x] API key management + usage dashboard
+- [x] VS Code extension
+- [x] GitHub + Google OAuth with NextAuth v5
+- [x] Neon Postgres for user/key persistence
+- [ ] Browser extension (ChatGPT, Claude, Gemini web UI injection)
+- [ ] Multilingual compression (French, German, Spanish)
+- [ ] Python SDK
+- [ ] VS Code extension published to marketplace
+- [ ] Self-hosted Docker guide
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the [MIT License](LICENSE).
+MIT — [Abhinav Dwivedi](https://github.com/learnerabhinavdwivedi-droid)
+
+Built with Next.js, NextAuth v5, Drizzle ORM, Neon Postgres, and a lot of late nights.

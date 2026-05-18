@@ -6,7 +6,7 @@ const users = pgTable('users', {
   email: text('email').notNull().unique(),
   name: text('name'),
   image: text('image'),
-  provider: text('provider').notNull(),
+  provider: text('provider').notNull().default('credentials'),
   stripeCustomerId: text('stripe_customer_id'),
   plan: text('plan').notNull().default('free'),
   createdAt: timestamp('created_at').defaultNow().notNull(),

@@ -7,6 +7,7 @@ import { users } from '@/schema/schema';
 import { eq } from 'drizzle-orm';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: process.env.AUTH_SECRET,
   session: {
     strategy: 'jwt',
   },
@@ -32,6 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const [newUser] = await db.insert(users).values({
               email,
               name: 'Raj',
+              provider: 'credentials',
               plan: 'advanced',
             }).returning();
             return {
@@ -42,6 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             };
           }
         } catch (e) {
+          console.error('[Auth] DB error in authorize, using local fallback:', e?.message);
           // Fallback if Neon DB is not configured — 100% local dev mode
           return {
             id: 'dev-local-1',
@@ -62,18 +65,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.plan = user.plan;
+        token.email = user.email;
+      }
+      if (account?.provider && account.provider !== 'credentials') {
+        token.provider = account.provider;
       }
       return token;
     },
     async signIn({ user, account }) {
+      // Credentials login — authorize() already handled DB upsert
       if (account?.provider === 'credentials') {
         return true;
       }
+
+      // OAuth providers — upsert user into DB, but NEVER block sign-in on DB failure
       try {
+        if (!user?.email) return true; // Edge case: no email from provider
+
         const existing = await db
           .select()
           .from(users)
@@ -83,25 +95,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (existing.length === 0) {
           await db.insert(users).values({
             email: user.email,
-            name: user.name,
-            image: user.image,
-            provider: account.provider,
+            name: user.name || 'User',
+            image: user.image || null,
+            provider: account?.provider || 'oauth',
             plan: 'advanced',
           });
         }
-        return true;
       } catch (e) {
-        console.error('Auth signIn error:', e);
-        return false;
+        // Log but NEVER block sign-in — user can still authenticate even if DB is down
+        console.error('[Auth] signIn DB upsert failed (non-blocking):', e?.message);
       }
+
+      return true; // Always allow sign-in
     },
     async session({ session, token }) {
+      // Local dev fallback
       if (token?.id === 'dev-local-1') {
         session.user.id = 'dev-local-1';
         session.user.plan = 'advanced';
         session.user.name = 'Raj (Local Mode)';
         return session;
       }
+
+      // Enrich session from JWT token first (fast path)
+      if (token?.id) {
+        session.user.id = token.id;
+        session.user.plan = token.plan || 'advanced';
+      }
+
+      // Then try to enrich from DB (may have fresher plan/stripe data)
       if (session?.user?.email) {
         try {
           const dbUser = await db
@@ -116,15 +138,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             session.user.stripeCustomerId = dbUser[0].stripeCustomerId;
           }
         } catch (e) {
-          // DB error fallback
-          session.user.id = token?.id || 'dev-local-1';
-          session.user.plan = token?.plan || 'advanced';
+          // DB error — use JWT token values already set above
+          console.error('[Auth] session DB lookup failed, using token fallback:', e?.message);
         }
       }
+
       return session;
     },
   },
   pages: {
     signIn: '/login',
   },
+  trustHost: true,
 });
