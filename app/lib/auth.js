@@ -15,31 +15,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'raj@prompty.com' },
+        email: { label: 'Email', type: 'email', placeholder: 'abhinav@prompty.com' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const email = credentials?.email || 'raj@prompty.com';
+        const email = credentials?.email || 'abhinav@prompty.com';
         try {
           const dbUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
           if (dbUser.length > 0) {
             return {
               id: dbUser[0].id,
               email: dbUser[0].email,
-              name: dbUser[0].name || 'Raj',
+              name: dbUser[0].name || 'Abhinav',
               plan: dbUser[0].plan || 'advanced',
             };
           } else {
             const [newUser] = await db.insert(users).values({
               email,
-              name: 'Raj',
+              name: 'Abhinav',
               provider: 'credentials',
               plan: 'advanced',
             }).returning();
             return {
               id: newUser.id,
               email: newUser.email,
-              name: newUser.name || 'Raj',
+              name: newUser.name || 'Abhinav',
               plan: newUser.plan || 'advanced',
             };
           }
@@ -49,7 +49,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return {
             id: 'dev-local-1',
             email,
-            name: 'Raj (Local Mode)',
+            name: 'Abhinav (Local Mode)',
             plan: 'advanced',
           };
         }
@@ -138,7 +138,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token?.id === 'dev-local-1') {
         session.user.id = 'dev-local-1';
         session.user.plan = 'advanced';
-        session.user.name = 'Raj (Local Mode)';
+        session.user.name = 'Abhinav (Local Mode)';
         return session;
       }
 
