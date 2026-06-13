@@ -108,6 +108,16 @@ export default function LandingStudioDashboard() {
           >
             Telemetry & Dashboard 📊
           </button>
+          <button
+            onClick={() => setActiveTab('history')}
+            className={`px-5 py-2 rounded-lg text-xs font-bold transition-all ${
+              activeTab === 'history'
+                ? 'bg-[#a855f7] text-black shadow-[0_0_20px_rgba(168,85,247,0.4)]'
+                : 'text-[#888888] hover:text-white'
+            }`}
+          >
+            History 🕒
+          </button>
         </div>
       </div>
 
@@ -259,6 +269,47 @@ export default function LandingStudioDashboard() {
               ))}
             </div>
           </div>
+        </div>
+      )}
+      {/* Tab 3: Prompt History */}
+      {activeTab === 'history' && (
+        <div className="p-8 sm:p-12 space-y-8 animate-fade-in relative min-h-[400px]">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#a855f7]/10 blur-[100px] pointer-events-none" />
+          
+          <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span className="text-[#a855f7]">🕒</span> Prompt History
+          </h3>
+          
+          {!usage?.recentCompressions || usage.recentCompressions.length === 0 ? (
+            <div className="text-center py-16 border border-dashed border-white/10 rounded-2xl bg-black/30">
+              <p className="text-sm text-[#666666] font-medium">No history available. Start compressing prompts to see them here.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {usage.recentCompressions.map((comp) => (
+                <div key={comp.id} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/[0.07] transition-all">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-xs font-bold text-[#888888] uppercase tracking-wider">{new Date(comp.createdAt).toLocaleString()}</span>
+                    <span className="px-3 py-1 bg-[#a855f7]/20 text-[#a855f7] text-[10px] font-bold rounded-full">{(comp.ratio * 100).toFixed(1)}% Saved</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">Original</h4>
+                      <div className="bg-black/50 p-4 rounded-xl border border-white/5 max-h-48 overflow-y-auto">
+                        <p className="text-sm text-[#c0c0c0] whitespace-pre-wrap">{comp.originalPrompt || 'N/A'}</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-bold text-[#a855f7] uppercase tracking-wider">Compressed</h4>
+                      <div className="bg-black/50 p-4 rounded-xl border border-[#a855f7]/20 max-h-48 overflow-y-auto">
+                        <p className="text-sm text-white whitespace-pre-wrap">{comp.compressedPrompt || 'N/A'}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -29,6 +29,8 @@ export const apiKeys = pgTable('api_keys', {
 export const compressions = pgTable('compressions', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('user_id').references(() => users.id),
+  originalPrompt: text('original_prompt'),
+  compressedPrompt: text('compressed_prompt'),
   originalWords: integer('original_words').notNull(),
   compressedWords: integer('compressed_words').notNull(),
   rosettaWords: integer('rosetta_words').notNull().default(0),

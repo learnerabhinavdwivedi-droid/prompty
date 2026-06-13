@@ -87,6 +87,8 @@ export async function POST(request) {
 
       await db.insert(compressions).values({
         userId,
+        originalPrompt: validation.text,
+        compressedPrompt: result.compressed,
         originalWords: result.stats.originalWords,
         compressedWords: result.stats.totalCompressedWords,
         rosettaWords: result.stats.rosettaWords,
