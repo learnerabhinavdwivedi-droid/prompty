@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '.env.local' });
 /** @type {import('drizzle-kit').Config} */
 module.exports = {
   schema: './schema/schema.js',
