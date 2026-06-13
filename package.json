@@ -4,7 +4,7 @@
   "description": "Same AI, fewer tokens. Token-aware prompt compression — built by Abhinav Dwivedi.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node vercel-migrate.js && next build",
     "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest",
