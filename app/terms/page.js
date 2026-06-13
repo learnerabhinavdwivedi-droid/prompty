@@ -110,7 +110,7 @@ export default function TermsPage() {
               <h2 className="text-lg font-semibold text-text mb-3">13. Contact</h2>
               <p>
                 Questions about these Terms? Contact us at{' '}
-                <a href="mailto:legal@tokenshrink.com" className="text-savings hover:underline">legal@tokenshrink.com</a>.
+                <a href="mailto:legal@localhost:3000" className="text-savings hover:underline">legal@localhost:3000</a>.
               </p>
             </section>
           </div>

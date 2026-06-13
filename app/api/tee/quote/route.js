@@ -3,7 +3,7 @@ import { TappdClient } from '@phala/dstack-sdk';
 
 export async function GET() {
   try {
-    // Attempt to connect to the local TEE endpoint (default: http://localhost:8090)
+    // Attempt to connect to the local TEE endpoint (default: #)
     const client = new TappdClient();
     
     // Request a TDX/SGX attestation quote

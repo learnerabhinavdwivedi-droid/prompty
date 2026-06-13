@@ -11,7 +11,7 @@ function LoginForm() {
   const next = searchParams.get('next');
   const callbackUrl = next?.startsWith('/') ? next : '/dashboard';
 
-  const [email, setEmail] = useState('raj@tokenshrink.com');
+  const [email, setEmail] = useState('raj@localhost:3000');
   const [password, setPassword] = useState('supersecret');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

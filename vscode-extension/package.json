@@ -13,11 +13,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "tokenshrink.compressSelection",
+        "command": "localhost:3000pressSelection",
         "title": "TokenShrink: Compress Selection"
       },
       {
-        "command": "tokenshrink.compressFile",
+        "command": "localhost:3000pressFile",
         "title": "TokenShrink: Compress File"
       }
     ]

@@ -31,7 +31,7 @@
     "type": "git",
     "url": "git+https://github.com/learnerabhinavdwivedi-droid/prompty.git"
   },
-  "homepage": "https://prompty.com",
+  "homepage": "#",
   "engines": {
     "node": ">=16.0.0"
   },

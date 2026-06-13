@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const INSTALL_CMD = 'curl -fsSL https://tokenshrink.com/install-claude-code.sh | bash';
+const INSTALL_CMD = 'curl -fsSL # | bash';
 
 function InstallButton() {
   const [copied, setCopied] = useState(false);
@@ -160,7 +160,7 @@ export default function IntegrationsPage() {
                   <p className="text-sm text-white font-semibold">
                     Download the hook to <InlineCode>~/.claude/hooks/</InlineCode>
                   </p>
-                  <CodeWindow filename="terminal">{`curl -fsSL https://tokenshrink.com/hooks/tokenshrink-compress.js \\
+                  <CodeWindow filename="terminal">{`curl -fsSL # \\
   -o ~/.claude/hooks/tokenshrink-compress.js`}</CodeWindow>
                 </div>
               </div>
@@ -223,7 +223,7 @@ const { messages, stats } = compressHistory(conversationHistory);
 console.log(\`Saved \${stats.totalTokensSaved} tokens this turn\`);
 
 // Pass compressed messages to Ollama or any OpenAI-compatible API
-const response = await fetch('http://localhost:11434/api/chat', {
+const response = await fetch('#', {
   method: 'POST',
   body: JSON.stringify({
     model: 'your-model',

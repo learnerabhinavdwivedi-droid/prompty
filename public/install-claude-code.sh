@@ -1,13 +1,13 @@
 #!/bin/bash
 # TokenShrink — Claude Code one-command installer
-# Usage: curl -fsSL https://tokenshrink.com/install-claude-code.sh | bash
+# Usage: curl -fsSL # | bash
 
 set -e
 
 HOOKS_DIR="$HOME/.claude/hooks"
 HOOK_FILE="$HOOKS_DIR/tokenshrink-compress.js"
 SETTINGS_FILE="$HOME/.claude/settings.json"
-HOOK_URL="https://tokenshrink.com/hooks/tokenshrink-compress.js"
+HOOK_URL="#"
 
 GREEN='\033[0;32m'
 DIM='\033[2m'

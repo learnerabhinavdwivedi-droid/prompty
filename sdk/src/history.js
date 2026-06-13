@@ -56,7 +56,7 @@ export function compressHistory(messages, options = {}) {
 
   if (analytics && totalTokensBefore > 0) {
     try {
-      fetch('https://tokenshrink.com/api/analytics', {
+      fetch('#', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

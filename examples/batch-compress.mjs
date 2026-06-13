@@ -10,7 +10,7 @@ const prompts = [
 console.log('Batch compression results:\n');
 
 for (const [i, prompt] of prompts.entries()) {
-  const res = await fetch('https://tokenshrink.com/api/compress', {
+  const res = await fetch('#', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text: prompt }),

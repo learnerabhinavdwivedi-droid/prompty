@@ -7,7 +7,7 @@ console.log('Original prompt:');
 console.log(prompt);
 console.log(`\nWords: ${prompt.split(/\s+/).length}`);
 
-const res = await fetch('https://tokenshrink.com/api/compress', {
+const res = await fetch('#', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ text: prompt }),

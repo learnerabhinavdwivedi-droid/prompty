@@ -79,9 +79,9 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">6. Third-Party Services</h2>
               <div className="mt-2 space-y-2">
-                <p><strong className="text-text">Stripe</strong> — payment processing. See <a href="https://stripe.com/privacy" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Stripe&rsquo;s Privacy Policy</a>.</p>
+                <p><strong className="text-text">Stripe</strong> — payment processing. See <a href="#" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Stripe&rsquo;s Privacy Policy</a>.</p>
                 <p><strong className="text-text">Neon</strong> — database hosting (PostgreSQL). Stores account info and usage statistics only.</p>
-                <p><strong className="text-text">Vercel</strong> — application hosting. See <a href="https://vercel.com/legal/privacy-policy" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Vercel&rsquo;s Privacy Policy</a>.</p>
+                <p><strong className="text-text">Vercel</strong> — application hosting. See <a href="#" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Vercel&rsquo;s Privacy Policy</a>.</p>
                 <p><strong className="text-text">GitHub / Google</strong> — OAuth authentication only. We receive your public profile information during sign-in.</p>
               </div>
             </section>
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
               </ul>
               <p className="mt-2">
                 To exercise any of these rights, contact us at{' '}
-                <a href="mailto:privacy@tokenshrink.com" className="text-savings hover:underline">privacy@tokenshrink.com</a>.
+                <a href="mailto:privacy@localhost:3000" className="text-savings hover:underline">privacy@localhost:3000</a>.
                 We will respond within 30 days.
               </p>
             </section>
@@ -138,7 +138,7 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-text mb-3">12. Contact</h2>
               <p>
                 Questions about privacy? Contact us at{' '}
-                <a href="mailto:privacy@tokenshrink.com" className="text-savings hover:underline">privacy@tokenshrink.com</a>.
+                <a href="mailto:privacy@localhost:3000" className="text-savings hover:underline">privacy@localhost:3000</a>.
               </p>
             </section>
           </div>

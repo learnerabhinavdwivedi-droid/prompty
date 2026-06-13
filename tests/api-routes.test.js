@@ -121,11 +121,11 @@ describe('compress API route logic', () => {
     });
 
     it('handles text with URLs', () => {
-      const text = 'Visit https://example.com for documentation. It is important to verify all external links. Please make sure to test the API endpoints. In order to ensure reliability, use proper error handling. Remember to check the status codes carefully.';
+      const text = 'Visit # for documentation. It is important to verify all external links. Please make sure to test the API endpoints. In order to ensure reliability, use proper error handling. Remember to check the status codes carefully.';
       const result = compress(text);
 
       expect(result.compressed).toBeDefined();
-      expect(result.compressed).toContain('https://example.com');
+      expect(result.compressed).toContain('#');
     });
 
     it('handles text with numbers and measurements', () => {

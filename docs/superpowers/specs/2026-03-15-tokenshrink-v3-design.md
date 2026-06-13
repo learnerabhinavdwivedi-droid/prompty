@@ -196,11 +196,11 @@ const response = await openai.chat.completions.create({
 
 **License validation:**
 - License key stored in `.claude/tokenshrink/config.json`
-- Validated against `api.tokenshrink.com/verify` (one call per session start, response cached)
+- Validated against `api.localhost:3000/verify` (one call per session start, response cached)
 - Offline fallback: honor cached license for 7 days if API unreachable
 - Payment: Stripe checkout (existing web app infrastructure)
 
-**API endpoint:** `POST api.tokenshrink.com/verify`
+**API endpoint:** `POST api.localhost:3000/verify`
 - Input: `{ licenseKey: "ts_live_..." }`
 - Output: `{ valid: true, tier: "advanced", expiresAt: "2026-04-15" }`
 
@@ -255,7 +255,7 @@ const response = await openai.chat.completions.create({
 
 ## Out of Scope (Future)
 
-- Hosted proxy service (`api.tokenshrink.com` as API gateway) — Phase 4
+- Hosted proxy service (`api.localhost:3000` as API gateway) — Phase 4
 - Auto-codebook sharing across team members — Phase 4
 - Visual codebook editor in web dashboard — Phase 4
 - Browser-compatible SDK build — not planned (Node.js target only)

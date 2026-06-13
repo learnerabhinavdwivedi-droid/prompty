@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://tokenshrink.com';
+  const baseUrl = '#';
 
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },

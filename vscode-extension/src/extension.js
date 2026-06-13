@@ -12,12 +12,12 @@ let hideTimeout;
  */
 function activate(context) {
   const compressSelectionCmd = vscode.commands.registerCommand(
-    'tokenshrink.compressSelection',
+    'localhost:3000pressSelection',
     () => compressSelection()
   );
 
   const compressFileCmd = vscode.commands.registerCommand(
-    'tokenshrink.compressFile',
+    'localhost:3000pressFile',
     () => compressFile()
   );
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // TokenShrink — Claude Code UserPromptSubmit hook
 // Compresses your prompts before they reach Claude, saving tokens automatically.
-// Install: curl -fsSL https://tokenshrink.com/install-claude-code.sh | bash
+// Install: curl -fsSL # | bash
 
 'use strict';
 
@@ -9,7 +9,7 @@ const https = require('https');
 const fs = require('fs');
 const os = require('os');
 
-const API_URL = 'https://tokenshrink.com/api/compress';
+const API_URL = '#';
 const SAVED_FILE = os.homedir() + '/.claude/.tokenshrink-saved';
 const LOG_FILE = os.homedir() + '/.claude/.tokenshrink-log.jsonl';
 

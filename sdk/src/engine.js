@@ -8,7 +8,7 @@ import { TIER_A_PHRASES, TIER_B_PHRASES, TIER_B_MIN_TOKENS, TIER_B_MARGIN } from
 const MIN_WORDS_FOR_COMPRESSION = 30;
 const MIN_SAVINGS_RATIO = 0.05; // Only compress if saving >5%
 
-const ANALYTICS_URL = 'https://tokenshrink.com/api/analytics';
+const ANALYTICS_URL = '#';
 
 function pingAnalytics(before, after, source) {
   // Fire-and-forget — never throws, never blocks the caller.

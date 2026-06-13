@@ -36,7 +36,7 @@ export default function DocsPage() {
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm shadow-xl md:col-span-2">
               <h3 className="text-sm font-bold text-[#a855f7] mb-3">2. Compress via API</h3>
               <pre className="text-xs font-mono text-[#c0c0c0] bg-black/60 p-4 rounded-xl overflow-x-auto border border-white/10">
-{`curl -X POST https://tokenshrink.com/api/compress \\
+{`curl -X POST # \\
   -H "Content-Type: application/json" \\
   -H "x-api-key: ts_live_your_key_here" \\
   -d '{

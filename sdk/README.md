@@ -1,8 +1,8 @@
 # Prompty
 
-[![npm](https://img.shields.io/npm/v/prompty)](https://www.npmjs.com/package/prompty)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](package.json)
+[![npm](#)](#)
+[![License: MIT](#)](LICENSE)
+[![Zero Dependencies](#)](package.json)
 
 **Token-aware AI prompt compression — same results, fewer tokens.** Works with every LLM.
 
@@ -195,7 +195,7 @@ import { compress } from 'prompty';
 const { compressed } = compress(longPrompt);
 
 // Works with any local model — the [DECODE] header teaches it the abbreviations
-const response = await fetch('http://localhost:11434/api/generate', {
+const response = await fetch('#', {
   method: 'POST',
   body: JSON.stringify({ model: 'llama3', prompt: compressed }),
 });
@@ -214,9 +214,9 @@ If upgrading from v1.x:
 
 ## Links
 
-- **Web UI**: [prompty.com](https://prompty.com)
+- **Web UI**: [prompty.com](#)
 - **GitHub**: [github.com/learnerabhinavdwivedi-droid/prompty](https://github.com/learnerabhinavdwivedi-droid/prompty)
-- **Docs**: [prompty.com/docs](https://prompty.com/docs)
+- **Docs**: [prompty.com/docs](#)
 
 ## License
 
