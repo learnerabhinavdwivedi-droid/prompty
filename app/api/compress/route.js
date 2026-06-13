@@ -49,7 +49,7 @@ export async function POST(request) {
       userId = result[0].userId;
     } else {
       const session = await auth();
-      if (session?.user?.id) {
+      if (session?.user?.id && session.user.id !== 'dev-local-1') {
         userId = session.user.id;
       }
     }

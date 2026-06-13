@@ -12,7 +12,7 @@ export async function GET(request) {
   if (!rl.allowed) return rateLimitResponse(rl.retryAfter);
 
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user?.id || session.user.id === 'dev-local-1') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -36,7 +36,7 @@ export async function POST(request) {
   if (!rl.allowed) return rateLimitResponse(rl.retryAfter);
 
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user?.id || session.user.id === 'dev-local-1') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -64,7 +64,7 @@ export async function DELETE(request) {
   if (!rl.allowed) return rateLimitResponse(rl.retryAfter);
 
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user?.id || session.user.id === 'dev-local-1') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

@@ -17,7 +17,7 @@ export async function GET(request) {
   }
 
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user?.id || session.user.id === 'dev-local-1') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
