@@ -3,8 +3,8 @@ import UpgradeButton from './UpgradeButton';
 import SavingsCalculator from './SavingsCalculator';
 
 export const metadata = {
-  title: 'Pricing Plans — TokenShrink',
-  description: 'TokenShrink Free is free forever. TokenShrink Advanced unlocks the Rosetta Protocol — negotiated session cipher, domain rotors, and cross-session learning.',
+  title: 'Pricing Plans — Prompty',
+  description: 'Prompty Free is free forever. Prompty Advanced unlocks the Rosetta Protocol — negotiated session cipher, domain rotors, and cross-session learning.',
 };
 
 const CHECK = (
@@ -67,7 +67,7 @@ export default function PricingPage() {
                 <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-[#c0c0c0] mb-6 uppercase tracking-wider">
                   Community
                 </div>
-                <h3 className="text-2xl font-bold text-white">TokenShrink Free</h3>
+                <h3 className="text-2xl font-bold text-white">Prompty Free</h3>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-6xl font-black text-white">$0</span>
                   <span className="text-lg text-[#888888] font-medium">/ forever</span>
@@ -107,7 +107,7 @@ export default function PricingPage() {
                 <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#a855f7]/20 border border-[#a855f7]/30 text-xs font-black text-[#a855f7] mb-6 uppercase tracking-wider">
                   Pro
                 </div>
-                <h3 className="text-2xl font-bold text-white">TokenShrink Advanced</h3>
+                <h3 className="text-2xl font-bold text-white">Prompty Advanced</h3>
                 <div className="mt-4 flex items-baseline gap-1">
                   <span className="text-6xl font-black text-white">$5</span>
                   <span className="text-lg text-[#888888] font-medium">/ month</span>

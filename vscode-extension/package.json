@@ -1,6 +1,6 @@
 {
-  "name": "tokenshrink",
-  "displayName": "TokenShrink",
+  "name": "prompty-vscode",
+  "displayName": "Prompty",
   "description": "Compress AI prompts — same results, fewer tokens",
   "version": "1.0.0",
   "publisher": "learnerabhinavdwivedi-droid",
@@ -13,16 +13,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "localhost:3000pressSelection",
-        "title": "TokenShrink: Compress Selection"
+        "command": "prompty.compressSelection",
+        "title": "Prompty: Compress Selection"
       },
       {
-        "command": "localhost:3000pressFile",
-        "title": "TokenShrink: Compress File"
+        "command": "prompty.compressFile",
+        "title": "Prompty: Compress File"
       }
     ]
   },
   "dependencies": {
-    "tokenshrink": "^2.0.0"
+    "prompty": "^2.0.0"
   }
 }

@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'API Documentation — TokenShrink',
-  description: 'TokenShrink API and SDK documentation. Compress your AI prompts programmatically.',
+  title: 'API Documentation — Prompty',
+  description: 'Prompty API and SDK documentation. Compress your AI prompts programmatically.',
 };
 
 export default function DocsPage() {
@@ -36,7 +36,7 @@ export default function DocsPage() {
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm shadow-xl md:col-span-2">
               <h3 className="text-sm font-bold text-[#a855f7] mb-3">2. Compress via API</h3>
               <pre className="text-xs font-mono text-[#c0c0c0] bg-black/60 p-4 rounded-xl overflow-x-auto border border-white/10">
-{`curl -X POST # \\
+{`curl -X POST https://promptyy-eta.vercel.app/api/compress \\
   -H "Content-Type: application/json" \\
   -H "x-api-key: ts_live_your_key_here" \\
   -d '{
@@ -50,10 +50,10 @@ export default function DocsPage() {
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm shadow-xl">
             <h3 className="text-sm font-bold text-[#a855f7] mb-3">3. Or use the SDK (v2.0)</h3>
             <pre className="text-xs font-mono text-[#a855f7] bg-[#a855f7]/10 p-4 rounded-xl border border-[#a855f7]/20 font-bold mb-4">
-{`npm install tokenshrink`}
+{`npm install prompty`}
             </pre>
             <pre className="text-xs font-mono text-[#c0c0c0] bg-black/60 p-5 rounded-xl overflow-x-auto border border-white/10 leading-relaxed">
-{`import { compress } from 'tokenshrink';
+{`import { compress } from 'prompty';
 
 // Compress a prompt — runs locally, no API call needed
 const result = compress('Your long prompt...');
@@ -188,10 +188,10 @@ const res = await openai.chat.completions.create({
           </h2>
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm shadow-xl space-y-4">
             <p className="text-sm text-[#c0c0c0] leading-relaxed font-medium">
-              v2.0 uses real token counts instead of word estimates. By default, TokenShrink uses a precomputed lookup table based on <code className="text-[#a855f7] bg-[#a855f7]/10 px-2 py-0.5 rounded-md text-xs font-mono border border-[#a855f7]/20">cl100k_base</code> (GPT-4). For exact counts with your specific model, pass a custom tokenizer:
+              v2.0 uses real token counts instead of word estimates. By default, Prompty uses a precomputed lookup table based on <code className="text-[#a855f7] bg-[#a855f7]/10 px-2 py-0.5 rounded-md text-xs font-mono border border-[#a855f7]/20">cl100k_base</code> (GPT-4). For exact counts with your specific model, pass a custom tokenizer:
             </p>
             <pre className="text-xs font-mono text-[#c0c0c0] bg-black/60 p-5 rounded-xl overflow-x-auto border border-white/10 leading-relaxed font-bold">
-{`import { compress } from 'tokenshrink';
+{`import { compress } from 'prompty';
 import { encode } from 'gpt-tokenizer';
 
 const result = compress(text, {

@@ -26,7 +26,7 @@ const nextConfig = {
         // Sensitive endpoints — same-origin only (session cookie auth)
         source: '/api/(keys|billing|auth|usage|analytics)/:path*',
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: '#' },
+          { key: 'Access-Control-Allow-Origin', value: 'https://promptyy-eta.vercel.app' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, DELETE, OPTIONS' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type' },
         ],
@@ -37,7 +37,7 @@ const nextConfig = {
 
 module.exports = withSentryConfig(nextConfig, {
   org: "ghb-ventures",
-  project: "tokenshrink",
+  project: "prompty",
   authToken: process.env.SENTRY_AUTH_TOKEN,
   widenClientFileUpload: true,
   tunnelRoute: "/monitoring",

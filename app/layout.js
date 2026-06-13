@@ -32,7 +32,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'TokenShrink — Same AI, Fewer Tokens.',
+  title: 'Prompty — Same AI, Fewer Tokens.',
   description: 'Token-aware prompt compression. Save up to 35% on LLM API costs without degrading model performance. Built by Abhinav Dwivedi.',
 };
 

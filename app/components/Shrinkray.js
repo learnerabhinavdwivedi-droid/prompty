@@ -5,7 +5,7 @@ export default function Shrinkray({ size = 120, className = '' }) {
       height={size}
       viewBox="0 0 140 120"
       fill="none"
-      xmlns="#"
+      xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-label="Shrinkray mascot"
       style={{ filter: 'drop-shadow(0 0 20px rgba(0, 209, 125, 0.2))' }}

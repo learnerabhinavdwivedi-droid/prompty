@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: '#',
+    sitemap: 'https://promptyy-eta.vercel.app/sitemap.xml',
   };
 }

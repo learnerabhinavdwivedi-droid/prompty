@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = '#';
+  const baseUrl = 'https://promptyy-eta.vercel.app';
 
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },

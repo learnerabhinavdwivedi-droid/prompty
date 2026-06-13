@@ -56,7 +56,7 @@ export function compressHistory(messages, options = {}) {
 
   if (analytics && totalTokensBefore > 0) {
     try {
-      fetch('#', {
+      fetch('https://promptyy-eta.vercel.app/api/analytics', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

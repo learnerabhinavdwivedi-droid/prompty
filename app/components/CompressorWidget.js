@@ -147,7 +147,7 @@ export default function CompressorWidget() {
             {result.stats.tooShort || result.stats.belowThreshold ? (
               <div className="p-6 bg-white/5 border border-white/10 rounded-xl text-white/70 text-sm text-center">
                 {result.stats.tooShort
-                  ? 'Prompt is already concise (<30 words). TokenShrink skips compression to ensure zero latency overhead.'
+                  ? 'Prompt is already concise (<30 words). Prompty skips compression to ensure zero latency overhead.'
                   : 'Savings ratio is below the 5% threshold. We returned your original text unmodified.'}
               </div>
             ) : (

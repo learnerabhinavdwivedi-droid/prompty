@@ -1,7 +1,7 @@
 'use client';
 
 const MESSAGE = [
-  '🚀 TokenShrink v3.0 is live',
+  '🚀 Prompty v3.0 is live',
   '—',
   'Up to 28% token savings',
   '—',

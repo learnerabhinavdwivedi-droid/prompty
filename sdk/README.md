@@ -1,8 +1,8 @@
 # Prompty
 
-[![npm](#)](#)
-[![License: MIT](#)](LICENSE)
-[![Zero Dependencies](#)](package.json)
+[![npm](https://img.shields.io/npm/v/prompty)](https://www.npmjs.com/package/prompty)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](package.json)
 
 **Token-aware AI prompt compression — same results, fewer tokens.** Works with every LLM.
 
@@ -195,7 +195,7 @@ import { compress } from 'prompty';
 const { compressed } = compress(longPrompt);
 
 // Works with any local model — the [DECODE] header teaches it the abbreviations
-const response = await fetch('#', {
+const response = await fetch('https://promptyy-eta.vercel.app/api/compress', {
   method: 'POST',
   body: JSON.stringify({ model: 'llama3', prompt: compressed }),
 });
@@ -214,9 +214,9 @@ If upgrading from v1.x:
 
 ## Links
 
-- **Web UI**: [prompty.com](#)
+- **Web UI**: [promptyy-eta.vercel.app](https://promptyy-eta.vercel.app)
 - **GitHub**: [github.com/learnerabhinavdwivedi-droid/prompty](https://github.com/learnerabhinavdwivedi-droid/prompty)
-- **Docs**: [prompty.com/docs](#)
+- **Docs**: [promptyy-eta.vercel.app/docs](https://promptyy-eta.vercel.app/docs)
 
 ## License
 

@@ -37,7 +37,7 @@ export default function SavingsCalculator() {
           <span className="text-savings font-medium">${savings}/mo</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-text-secondary">TokenShrink Pro</span>
+          <span className="text-text-secondary">Prompty Pro</span>
           <span className="text-cost">-$19/mo</span>
         </div>
         <div className="border-t border-border pt-3 flex justify-between">

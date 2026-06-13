@@ -24,7 +24,7 @@ export default function Home() {
             <FadeIn>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-[#c0c0c0] mb-8 backdrop-blur-md shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#a855f7] animate-pulse" />
-                TokenShrink v2.1 — built by Abhinav Dwivedi
+                Prompty v2.1 — built by Abhinav Dwivedi
               </div>
             </FadeIn>
 
@@ -216,7 +216,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
               <span className="text-[#a855f7] text-xl leading-none font-black">◈</span>
-              <span className="text-lg font-bold tracking-tight text-white">TokenShrink</span>
+              <span className="text-lg font-bold tracking-tight text-white">Prompty</span>
             </div>
             
             <div className="flex flex-wrap justify-center gap-8 text-sm font-semibold text-[#888888]">

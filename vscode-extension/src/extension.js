@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const { compress } = require('tokenshrink');
+const { compress } = require('prompty');
 
 /** @type {vscode.StatusBarItem | undefined} */
 let statusBarItem;
@@ -12,12 +12,12 @@ let hideTimeout;
  */
 function activate(context) {
   const compressSelectionCmd = vscode.commands.registerCommand(
-    'localhost:3000pressSelection',
+    'prompty.compressSelection',
     () => compressSelection()
   );
 
   const compressFileCmd = vscode.commands.registerCommand(
-    'localhost:3000pressFile',
+    'prompty.compressFile',
     () => compressFile()
   );
 
@@ -42,26 +42,26 @@ function deactivate() {
 async function compressSelection() {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    vscode.window.showWarningMessage('TokenShrink: No active editor.');
+    vscode.window.showWarningMessage('Prompty: No active editor.');
     return;
   }
 
   const selection = editor.selection;
   if (selection.isEmpty) {
-    vscode.window.showWarningMessage('TokenShrink: No text selected.');
+    vscode.window.showWarningMessage('Prompty: No text selected.');
     return;
   }
 
   const text = editor.document.getText(selection);
   if (text.trim().length === 0) {
-    vscode.window.showWarningMessage('TokenShrink: Selection is empty or whitespace.');
+    vscode.window.showWarningMessage('Prompty: Selection is empty or whitespace.');
     return;
   }
 
   const result = compress(text);
 
   if (result.stats.tokensSaved === 0) {
-    vscode.window.showInformationMessage('TokenShrink: Text is already compact — no savings possible.');
+    vscode.window.showInformationMessage('Prompty: Text is already compact — no savings possible.');
     return;
   }
 
@@ -75,7 +75,7 @@ async function compressSelection() {
 async function compressFile() {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    vscode.window.showWarningMessage('TokenShrink: No active editor.');
+    vscode.window.showWarningMessage('Prompty: No active editor.');
     return;
   }
 
@@ -83,14 +83,14 @@ async function compressFile() {
   const text = document.getText();
 
   if (text.trim().length === 0) {
-    vscode.window.showWarningMessage('TokenShrink: File is empty.');
+    vscode.window.showWarningMessage('Prompty: File is empty.');
     return;
   }
 
   const result = compress(text);
 
   if (result.stats.tokensSaved === 0) {
-    vscode.window.showInformationMessage('TokenShrink: File is already compact — no savings possible.');
+    vscode.window.showInformationMessage('Prompty: File is already compact — no savings possible.');
     return;
   }
 
@@ -118,7 +118,7 @@ function showSavings(stats) {
 
   // Info message with full summary
   vscode.window.showInformationMessage(
-    `TokenShrink: ${stats.tokensSaved} tokens saved (${pct}% reduction). ` +
+    `Prompty: ${stats.tokensSaved} tokens saved (${pct}% reduction). ` +
     `${stats.originalTokens} -> ${stats.totalCompressedTokens} tokens. ` +
     `~$${stats.dollarsSaved.toFixed(2)} saved per call.`
   );
@@ -128,7 +128,7 @@ function showSavings(stats) {
     statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   }
 
-  statusBarItem.text = `$(zap) TokenShrink: ${stats.tokensSaved} tokens saved (${pct}% reduction)`;
+  statusBarItem.text = `$(zap) Prompty: ${stats.tokensSaved} tokens saved (${pct}% reduction)`;
   statusBarItem.tooltip = `${stats.originalTokens} -> ${stats.totalCompressedTokens} tokens | ~$${stats.dollarsSaved.toFixed(2)} saved per call`;
   statusBarItem.show();
 

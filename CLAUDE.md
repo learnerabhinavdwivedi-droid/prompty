@@ -23,7 +23,7 @@ Prompt compression SaaS — reduces LLM token usage without losing meaning. Ship
 app/                    # Next.js App Router (pages, components, API routes)
 app/api/compress/       # Main compression API endpoint
 app/api/billing/        # Stripe billing API
-sdk/src/                # npm SDK source (index.js, providers.js, rules.js)
+sdk/src/                # npm SDK source (engine.js, dictionaries.js, rosetta.js, strategies.js, utils.js, token-costs.js, huffman-tables.js)
 tests/                  # 10 Vitest test files (51 tests)
 schema/                 # Drizzle ORM database schema
 scripts/                # Utility scripts
@@ -52,7 +52,7 @@ git push origin main     # Triggers Vercel auto-deploy
 - **No console.log in production code.**
 - **SDK is standalone**: Zero dependencies, ES modules — never add npm deps to `sdk/src/`.
 - **Path alias**: `@/*` maps to project root — use it consistently.
-- **Neon PostgreSQL**: Serverless driver — needs `NEON_DATABASE_URL` env var.
+- **Neon PostgreSQL**: Serverless driver — needs `DATABASE_URL` env var.
 - **next-auth v5 beta**: API differs from stable docs — check actual imports in the codebase before assuming method names.
 - **Stripe keys**: Need `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` in .env.
 - **CORS headers**: Set in `next.config.js`, not middleware.

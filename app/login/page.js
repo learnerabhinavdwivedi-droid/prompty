@@ -11,8 +11,8 @@ function LoginForm() {
   const next = searchParams.get('next');
   const callbackUrl = next?.startsWith('/') ? next : '/dashboard';
 
-  const [email, setEmail] = useState('raj@localhost:3000');
-  const [password, setPassword] = useState('supersecret');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -56,7 +56,7 @@ function LoginForm() {
           <span className="text-black font-bold text-lg leading-none">◈</span>
         </div>
         <span className="text-2xl font-bold tracking-tight text-white">
-          Token<span className="text-[#a855f7]">Shrink</span>
+          Prom<span className="text-[#a855f7]">pty</span>
         </span>
       </Link>
 
@@ -66,7 +66,7 @@ function LoginForm() {
             Welcome back
           </h1>
           <p className="text-sm text-[#888888]">
-            Sign in to your TokenShrink account.
+            Sign in to your Prompty account.
           </p>
         </div>
 

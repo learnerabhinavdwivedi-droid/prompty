@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// TokenShrink — Claude Code UserPromptSubmit hook
+// Prompty — Claude Code UserPromptSubmit hook
 // Compresses your prompts before they reach Claude, saving tokens automatically.
 // Install: curl -fsSL # | bash
 
@@ -9,7 +9,7 @@ const https = require('https');
 const fs = require('fs');
 const os = require('os');
 
-const API_URL = '#';
+const API_URL = 'https://promptyy-eta.vercel.app/api/compress';
 const SAVED_FILE = os.homedir() + '/.claude/.tokenshrink-saved';
 const LOG_FILE = os.homedir() + '/.claude/.tokenshrink-log.jsonl';
 

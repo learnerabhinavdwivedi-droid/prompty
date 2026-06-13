@@ -2,8 +2,8 @@ import Navbar from '../components/Navbar';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Terms of Service — TokenShrink',
-  description: 'TokenShrink Terms of Service. Read our terms for using the AI prompt compression service.',
+  title: 'Terms of Service — Prompty',
+  description: 'Prompty Terms of Service. Read our terms for using the AI prompt compression service.',
 };
 
 export default function TermsPage() {
@@ -19,7 +19,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">1. Service Description</h2>
               <p>
-                TokenShrink (&ldquo;Service&rdquo;) is an AI prompt compression tool operated by TokenShrink (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;). We compress text to reduce token counts before you send it to your own AI providers. We do not send your text to any third-party AI model, do not store your prompt content, and do not act as a proxy or reseller of any AI service.
+                Prompty (&ldquo;Service&rdquo;) is an AI prompt compression tool operated by Prompty (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;). We compress text to reduce token counts before you send it to your own AI providers. We do not send your text to any third-party AI model, do not store your prompt content, and do not act as a proxy or reseller of any AI service.
               </p>
             </section>
 
@@ -40,7 +40,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">4. No Reliance</h2>
               <p>
-                Do not rely on AI outputs generated from compressed prompts for medical, legal, financial, or safety-critical decisions without independent verification by a qualified professional. TokenShrink is a text processing tool, not a source of professional advice.
+                Do not rely on AI outputs generated from compressed prompts for medical, legal, financial, or safety-critical decisions without independent verification by a qualified professional. Prompty is a text processing tool, not a source of professional advice.
               </p>
             </section>
 
@@ -67,7 +67,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">7. API Keys</h2>
               <p>
-                TokenShrink API keys are for authenticating with our compression service only. We do not accept, store, or use API keys from any third-party AI provider (OpenAI, Anthropic, Google, etc.). You are responsible for keeping your TokenShrink API key confidential. Revoke compromised keys immediately via your dashboard.
+                Prompty API keys are for authenticating with our compression service only. We do not accept, store, or use API keys from any third-party AI provider (OpenAI, Anthropic, Google, etc.). You are responsible for keeping your Prompty API key confidential. Revoke compromised keys immediately via your dashboard.
               </p>
             </section>
 
@@ -81,14 +81,14 @@ export default function TermsPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">9. Limitation of Liability</h2>
               <p>
-                To the maximum extent permitted by law, TokenShrink&rsquo;s total liability for any claims arising from use of the Service is limited to the amount you paid us in the 12 months preceding the claim. We are not liable for indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities.
+                To the maximum extent permitted by law, Prompty&rsquo;s total liability for any claims arising from use of the Service is limited to the amount you paid us in the 12 months preceding the claim. We are not liable for indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities.
               </p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">10. User Indemnification</h2>
               <p>
-                You agree to indemnify and hold harmless TokenShrink from any claims, damages, or expenses arising from your use of the Service, your violation of these Terms, or your violation of any third-party rights including AI provider terms of service.
+                You agree to indemnify and hold harmless Prompty from any claims, damages, or expenses arising from your use of the Service, your violation of these Terms, or your violation of any third-party rights including AI provider terms of service.
               </p>
             </section>
 
@@ -110,7 +110,7 @@ export default function TermsPage() {
               <h2 className="text-lg font-semibold text-text mb-3">13. Contact</h2>
               <p>
                 Questions about these Terms? Contact us at{' '}
-                <a href="mailto:legal@localhost:3000" className="text-savings hover:underline">legal@localhost:3000</a>.
+                <a href="mailto:contact@promptyy-eta.vercel.app" className="text-savings hover:underline">contact@promptyy-eta.vercel.app</a>.
               </p>
             </section>
           </div>
@@ -119,7 +119,7 @@ export default function TermsPage() {
         <footer className="px-6 py-8 border-t border-border">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-text-muted">
-              Token<span className="text-savings">Shrink</span>
+              Prompty
             </div>
             <div className="flex items-center gap-6 text-xs text-text-muted">
               <Link href="/docs" className="hover:text-text transition-colors">Docs</Link>

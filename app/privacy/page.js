@@ -2,8 +2,8 @@ import Navbar from '../components/Navbar';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Privacy Policy — TokenShrink',
-  description: 'TokenShrink Privacy Policy. Learn how we handle your data.',
+  title: 'Privacy Policy — Prompty',
+  description: 'Prompty Privacy Policy. Learn how we handle your data.',
 };
 
 export default function PrivacyPage() {
@@ -19,7 +19,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">1. Overview</h2>
               <p>
-                TokenShrink (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) respects your privacy. This policy explains what data we collect, how we use it, and your rights regarding that data.
+                Prompty (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) respects your privacy. This policy explains what data we collect, how we use it, and your rights regarding that data.
               </p>
             </section>
 
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
                 <li><strong className="text-text">Prompt text</strong> — your original text is never stored, logged, or transmitted to third parties</li>
                 <li><strong className="text-text">Compressed output</strong> — the compressed result is never stored on our servers</li>
                 <li><strong className="text-text">Third-party API keys</strong> — we do not accept or store API keys from OpenAI, Anthropic, Google, or any other AI provider</li>
-                <li><strong className="text-text">Browsing history</strong> — we do not track pages you visit outside of TokenShrink</li>
+                <li><strong className="text-text">Browsing history</strong> — we do not track pages you visit outside of Prompty</li>
               </ul>
             </section>
 
@@ -79,9 +79,9 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">6. Third-Party Services</h2>
               <div className="mt-2 space-y-2">
-                <p><strong className="text-text">Stripe</strong> — payment processing. See <a href="#" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Stripe&rsquo;s Privacy Policy</a>.</p>
+                <p><strong className="text-text">Stripe</strong> — payment processing. See <a href="https://stripe.com/privacy" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Stripe&rsquo;s Privacy Policy</a>.</p>
                 <p><strong className="text-text">Neon</strong> — database hosting (PostgreSQL). Stores account info and usage statistics only.</p>
-                <p><strong className="text-text">Vercel</strong> — application hosting. See <a href="#" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Vercel&rsquo;s Privacy Policy</a>.</p>
+                <p><strong className="text-text">Vercel</strong> — application hosting. See <a href="https://vercel.com/legal/privacy-policy" className="text-savings hover:underline" target="_blank" rel="noopener noreferrer">Vercel&rsquo;s Privacy Policy</a>.</p>
                 <p><strong className="text-text">GitHub / Google</strong> — OAuth authentication only. We receive your public profile information during sign-in.</p>
               </div>
             </section>
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
               </ul>
               <p className="mt-2">
                 To exercise any of these rights, contact us at{' '}
-                <a href="mailto:privacy@localhost:3000" className="text-savings hover:underline">privacy@localhost:3000</a>.
+                <a href="mailto:contact@promptyy-eta.vercel.app" className="text-savings hover:underline">contact@promptyy-eta.vercel.app</a>.
                 We will respond within 30 days.
               </p>
             </section>
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-lg font-semibold text-text mb-3">10. Children</h2>
               <p>
-                TokenShrink is not directed at children under 13. We do not knowingly collect data from children under 13. If you believe we have collected such data, contact us immediately.
+                Prompty is not directed at children under 13. We do not knowingly collect data from children under 13. If you believe we have collected such data, contact us immediately.
               </p>
             </section>
 
@@ -138,7 +138,7 @@ export default function PrivacyPage() {
               <h2 className="text-lg font-semibold text-text mb-3">12. Contact</h2>
               <p>
                 Questions about privacy? Contact us at{' '}
-                <a href="mailto:privacy@localhost:3000" className="text-savings hover:underline">privacy@localhost:3000</a>.
+                <a href="mailto:contact@promptyy-eta.vercel.app" className="text-savings hover:underline">contact@promptyy-eta.vercel.app</a>.
               </p>
             </section>
           </div>
@@ -147,7 +147,7 @@ export default function PrivacyPage() {
         <footer className="px-6 py-8 border-t border-border">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-text-muted">
-              Token<span className="text-savings">Shrink</span>
+              Prompty
             </div>
             <div className="flex items-center gap-6 text-xs text-text-muted">
               <Link href="/docs" className="hover:text-text transition-colors">Docs</Link>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const INSTALL_CMD = 'curl -fsSL # | bash';
+const INSTALL_CMD = 'curl -fsSL https://promptyy-eta.vercel.app/install-claude-code.sh | bash';
 
 function InstallButton() {
   const [copied, setCopied] = useState(false);
@@ -98,7 +98,7 @@ export default function IntegrationsPage() {
           </p>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Integrations</h1>
           <p className="text-base text-[#888888] max-w-2xl mx-auto font-medium">
-            TokenShrink plugs into your existing workflow. No new tools to learn. No changes to how you work.
+            Prompty plugs into your existing workflow. No new tools to learn. No changes to how you work.
           </p>
         </div>
 
@@ -123,7 +123,7 @@ export default function IntegrationsPage() {
               How it works
             </h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              A <InlineCode>UserPromptSubmit</InlineCode> hook intercepts your message before it reaches Claude, compresses it with TokenShrink, and passes the compressed version — saving tokens on every single turn.
+              A <InlineCode>UserPromptSubmit</InlineCode> hook intercepts your message before it reaches Claude, compresses it with Prompty, and passes the compressed version — saving tokens on every single turn.
             </p>
           </div>
 
@@ -160,7 +160,7 @@ export default function IntegrationsPage() {
                   <p className="text-sm text-white font-semibold">
                     Download the hook to <InlineCode>~/.claude/hooks/</InlineCode>
                   </p>
-                  <CodeWindow filename="terminal">{`curl -fsSL # \\
+                  <CodeWindow filename="terminal">{`curl -fsSL https://promptyy-eta.vercel.app/hooks/tokenshrink-compress.js \\
   -o ~/.claude/hooks/tokenshrink-compress.js`}</CodeWindow>
                 </div>
               </div>
@@ -212,18 +212,18 @@ export default function IntegrationsPage() {
               What is OpenClaw
             </h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              OpenClaw is a Discord-to-AI gateway that routes messages to local agents. TokenShrink&apos;s <InlineCode>compressHistory()</InlineCode> reduces the token cost of every conversation before it hits your Ollama models.
+              OpenClaw is a Discord-to-AI gateway that routes messages to local agents. Prompty&apos;s <InlineCode>compressHistory()</InlineCode> reduces the token cost of every conversation before it hits your Ollama models.
             </p>
           </div>
 
-          <CodeWindow filename="openclaw-handler.js">{`import { compressHistory } from 'tokenshrink';
+          <CodeWindow filename="openclaw-handler.js">{`import { compressHistory } from 'prompty';
 
 // Before sending conversation to your agent
 const { messages, stats } = compressHistory(conversationHistory);
 console.log(\`Saved \${stats.totalTokensSaved} tokens this turn\`);
 
 // Pass compressed messages to Ollama or any OpenAI-compatible API
-const response = await fetch('#', {
+const response = await fetch('http://localhost:11434/api/chat', {
   method: 'POST',
   body: JSON.stringify({
     model: 'your-model',
@@ -255,14 +255,14 @@ const response = await fetch('#', {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <CodeWindow filename="single-prompt.js">{`// Single prompt
-import { compress } from 'tokenshrink';
+import { compress } from 'prompty';
 
 const { compressed, stats } = compress(myPrompt);
 // → stats.tokensSaved
 // → stats.ratio`}</CodeWindow>
 
             <CodeWindow filename="conversation.js">{`// Full conversation history
-import { compressHistory } from 'tokenshrink';
+import { compressHistory } from 'prompty';
 
 const { messages, stats } = compressHistory(history);
 // → stats.totalTokensSaved
@@ -271,7 +271,7 @@ const { messages, stats } = compressHistory(history);
 
           <div className="text-center pt-6">
             <code className="text-sm font-black text-[#a855f7] bg-[#a855f7]/10 px-6 py-4 rounded-xl border border-[#a855f7]/30 font-mono shadow-[0_0_20px_rgba(168,85,247,0.15)] inline-block">
-              npm install tokenshrink
+              npm install prompty
             </code>
           </div>
         </section>

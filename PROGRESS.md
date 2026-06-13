@@ -1,4 +1,4 @@
-# TokenShrink (Prompty) — Build Log
+# Prompty — Build Log
 
 **Author:** Abhinav Dwivedi ([@learnerabhinavdwivedi-droid](https://github.com/learnerabhinavdwivedi-droid))
 **Last updated:** 2026-05-18
@@ -53,7 +53,7 @@
 
 ### Deployment — COMPLETE
 - [x] Vercel auto-deploys from main branch
-- [x] localhost:3000 live (200 OK)
+- [x] promptyy-eta.vercel.app live (200 OK)
 - [x] npm published: `prompty@2.0.0` (account: learnerabhinavdwivedi-droid)
 - [x] Neon DB: 5 tables live (users, apiKeys, compressions, subscriptions, usageMeters)
 - [x] GitHub Actions CI (runs 51 tests on push/PR)
@@ -63,7 +63,7 @@
 ## Environment Variables Status
 - [x] `DATABASE_URL` — Neon PostgreSQL
 - [x] `AUTH_SECRET` — NextAuth v5 secret
-- [x] `AUTH_URL` / `NEXTAUTH_URL` — #
+- [x] `AUTH_URL` / `NEXTAUTH_URL` — https://promptyy-eta.vercel.app
 - [x] `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET` — OAuth app configured
 - [x] `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` — OAuth app configured
 - [ ] `STRIPE_SECRET_KEY` — needed for billing features
@@ -98,4 +98,4 @@
 - npm 2FA requires web auth (no OTP codes) — must publish manually via browser
 - `gpt-tokenizer` is devDependency only (not bundled in SDK)
 - VS Code extension not yet published to marketplace (needs `vsce` packaging)
-- OAuth callback URLs must be registered: `#` and `/google`
+- OAuth callback URLs must be registered: `https://promptyy-eta.vercel.app/api/auth/callback/github` and `https://promptyy-eta.vercel.app/api/auth/callback/google`

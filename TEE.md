@@ -5,7 +5,7 @@ To cryptographically prove this claim to users, Prompty can be deployed inside a
 
 ## How It Works
 
-We've integrated the `@phala/dstack-sdk` and provided a `Dockerfile` with a `compose.yaml` file so you can easily deploy Prompty onto TEE networks like the [Phala Network Cloud](#) or Automata.
+We've integrated the `@phala/dstack-sdk` and provided a `Dockerfile` with a `compose.yaml` file so you can easily deploy Prompty onto TEE networks like the [Phala Network Cloud](https://cloud.phala.network) or Automata.
 
 ### 1. Cryptographic Attestation API
 

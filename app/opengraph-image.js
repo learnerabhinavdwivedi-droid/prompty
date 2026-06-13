@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'TokenShrink — Same AI, Fewer Tokens';
+export const alt = 'Prompty — Same AI, Fewer Tokens';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -38,8 +38,8 @@ export default function Image() {
             letterSpacing: '-0.02em',
           }}
         >
-          Token
-          <span style={{ color: '#a855f7' }}>Shrink</span>
+          Prom
+          <span style={{ color: '#a855f7' }}>pty</span>
         </div>
 
         <div
@@ -88,7 +88,7 @@ export default function Image() {
             border: '1px solid #a855f7',
           }}
         >
-          npm install tokenshrink
+          npm install prompty
         </div>
       </div>
     ),

@@ -139,7 +139,7 @@ export async function POST(request) {
       callsUsed: tierInfo.callsUsed,
       callsLimit: 500,
       upgrade_prompt: 'You\'ve used 500/500 free API calls this month. Upgrade to Pro for unlimited calls + advanced compression.',
-      upgrade_url: '#',
+      upgrade_url: 'https://promptyy-eta.vercel.app/pricing',
     } : {};
 
     return NextResponse.json({

@@ -129,7 +129,7 @@ export default function SavingsCalculator() {
             <p className="mt-3 text-4xl font-black text-white tracking-tighter">
               {currencyFormatter.format(monthlyCost)}
             </p>
-            <p className="mt-2 text-xs font-medium text-[#666666]">Before TokenShrink compression</p>
+            <p className="mt-2 text-xs font-medium text-[#666666]">Before Prompty compression</p>
           </div>
 
           <div className="rounded-2xl border border-[#a855f7]/30 bg-[#a855f7]/10 px-6 py-6 text-center hover:bg-[#a855f7]/15 transition-all relative overflow-hidden">
