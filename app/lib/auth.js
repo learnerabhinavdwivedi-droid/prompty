@@ -20,7 +20,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         const email = credentials?.email || 'raj@prompty.com';
-        try {
           const dbUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
           if (dbUser.length > 0) {
             return {
@@ -43,16 +42,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               plan: newUser.plan || 'advanced',
             };
           }
-        } catch (e) {
-          console.error('[Auth] DB error in authorize, using local fallback:', e?.message);
-          // Fallback if Neon DB is not configured — 100% local dev mode
-          return {
-            id: 'dev-local-1',
-            email,
-            name: 'Raj (Local Mode)',
-            plan: 'advanced',
-          };
-        }
       },
     }),
     GitHub({
@@ -134,12 +123,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user = {};
       }
 
-      // Local dev fallback
       if (token?.id === 'dev-local-1') {
-        session.user.id = 'dev-local-1';
-        session.user.plan = 'advanced';
-        session.user.name = 'Raj (Local Mode)';
-        return session;
+        return {}; // Force logout of corrupted fallback sessions
       }
 
       // Enrich session from JWT token first (fast path)
