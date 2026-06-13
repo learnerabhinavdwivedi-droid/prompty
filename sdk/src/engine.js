@@ -6,7 +6,7 @@ import { ZERO_SAVINGS, NEGATIVE_SAVINGS } from './token-costs.js';
 import { TIER_A_PHRASES, TIER_B_PHRASES, TIER_B_MIN_TOKENS, TIER_B_MARGIN } from './huffman-tables.js';
 
 const MIN_WORDS_FOR_COMPRESSION = 30;
-const MIN_SAVINGS_RATIO = 0.05; // Only compress if saving >5%
+const MIN_SAVINGS_RATIO = 0.00; // Compress as long as it does not increase size
 
 const ANALYTICS_URL = 'https://promptyy-eta.vercel.app/api/analytics';
 
